@@ -12,7 +12,7 @@
 class Program
 {
     // The path to our data file - we'll read and write character data here
-    static string filePath = "input.csv";
+    static string filePath = "Files/input.csv";
 
     static void Main()
     {
@@ -114,9 +114,14 @@ class Program
 
         foreach (string line in lines)
         {
-            // Currently just displays the raw CSV line
-            // TODO: Parse the line and display formatted output
-            Console.WriteLine(line);
+            //Altered to output formatted character data
+            string[] fields = line.Split(',');
+            Console.WriteLine($"Name:\t\t{fields[0]}");
+            Console.WriteLine($"Class:\t\t{fields[1]}");
+            Console.WriteLine($"Level:\t\t{fields[2]}");
+            Console.WriteLine($"HP:\t\t{fields[3]}");
+            Console.WriteLine($"Equipment:\t{fields[4]}");
+            Console.WriteLine($"\n======================\n");          
         }
     }
 
