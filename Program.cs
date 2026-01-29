@@ -1,3 +1,6 @@
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices.Marshalling;
+
 /// <summary>
 class Program
 {
@@ -52,7 +55,9 @@ class Program
         }
     }
 
+    /// <summary>
     /// Displays the main menu options to the user.
+    /// </summary>
 
     static void DisplayMenu()
     {
@@ -63,7 +68,9 @@ class Program
         Console.WriteLine("0. Exit");
     }
 
+    /// <summary>
     /// Reads all characters from the CSV file and displays them.
+    /// </summary>
     static void DisplayAllCharacters()
     {
         Console.WriteLine("\n=== All Characters ===\n");
@@ -96,7 +103,7 @@ class Program
         string className = Console.ReadLine();
         Console.Write("Enter character level: ");
         string level = Console.ReadLine();
-        Console.Write("Enter character hP: ");
+        Console.Write("Enter character hp: ");
         string hp = Console.ReadLine();
         Console.Write("Enter character equipment: ");
         string items = Console.ReadLine();
@@ -108,41 +115,44 @@ class Program
         //appending new character to .csv (including \n to maintain correct .csv formatting - had to manually update base input.csv for accuracy)
         //TODO: Come back and figure out how filePath works - debug output folder "input.csv" gets updated, however original filePath doesn't
         File.AppendAllText(filePath, newCharacter + "\n");
+
+        Console.WriteLine($"\nYour new character {name} has been created!");
     }
 
     /// <summary>
     /// Finds a character by name and increases their level by 1.
-    ///
-    /// TODO: Complete this method to:
-    /// 1. Prompt for the character's name
-    /// 2. Read all lines from the file
-    /// 3. Find the line containing that character
-    /// 4. Parse the line, increase the level, rebuild the line
-    /// 5. Write all lines back to the file
-    ///
-    /// This is more challenging because you need to modify existing data!
-    ///
-    /// HINT: You'll need to:
-    /// - Read all lines into an array
-    /// - Loop through to find the matching character
-    /// - Modify that line (parse, change level, rebuild)
-    /// - Write all lines back using File.WriteAllLines()
     /// </summary>
     static void LevelUpCharacter()
     {
         Console.WriteLine("\n=== Level Up Character ===\n");
 
-        // TODO: Prompt for character name to level up
+        //Prompt for character name to level up
         Console.Write("Enter character name to level up: ");
         string nameToFind = Console.ReadLine();
 
-        // TODO: Read all lines from the file
-        // string[] lines = File.ReadAllLines(filePath);
+        //Read all lines from the file and place into array
+        string[] lines = File.ReadAllLines(filePath);
 
-        // TODO: Loop through lines to find the character
-        // TODO: Parse the line, increase level, rebuild
-        // TODO: Write all lines back to the file
+        //Loop through lines to find the character
+        for (int i = 0; i < lines.Length; i++)
+        {
+            if (lines[i].Contains(nameToFind))
+            {
+                //Parse the line
+                string[] details = lines[i].Split(",");
 
-        Console.WriteLine("TODO: Implement level up functionality");
+                //convert to int and increase level
+                int charLevel = Convert.ToInt32(details[2]) + 1;
+
+                //create new .csv line 
+                lines[i] = $"{details[0]},{details[1]},{charLevel},{details[3]},{details[4]}";
+
+                //write all lines to .csv
+                File.WriteAllLines(filePath, lines);
+
+                Console.WriteLine($"\n{details[0]} has leveled up!");
+                break;
+            }
+        }
     }
 }
