@@ -1,14 +1,4 @@
 /// <summary>
-/// Week 1: File I/O Basics - Console RPG Character Manager
-///
-/// This program teaches fundamental file operations in C#:
-/// - Reading data from CSV files using File.ReadAllLines()
-/// - Parsing comma-separated values using String.Split()
-/// - Writing data back to files using File.WriteAllLines()
-///
-/// The menu structure is provided for you to review and understand.
-/// Your tasks are marked with TODO comments throughout the code.
-/// </summary>
 class Program
 {
     // The path to our data file - we'll read and write character data here
@@ -62,10 +52,8 @@ class Program
         }
     }
 
-    /// <summary>
     /// Displays the main menu options to the user.
-    /// This is complete - review it to understand the structure.
-    /// </summary>
+
     static void DisplayMenu()
     {
         Console.WriteLine("What would you like to do?");
@@ -75,42 +63,13 @@ class Program
         Console.WriteLine("0. Exit");
     }
 
-    /// <summary>
     /// Reads all characters from the CSV file and displays them.
-    ///
-    /// TODO: Complete this method to:
-    /// 1. Read all lines from the file using File.ReadAllLines()
-    /// 2. Loop through each line
-    /// 3. Split each line by comma to get individual fields
-    /// 4. Display the character information in a readable format
-    ///
-    /// CSV Format: Name,Class,Level,HP,Equipment
-    /// Example: John,Fighter,1,10,sword|shield|potion
-    /// </summary>
     static void DisplayAllCharacters()
     {
         Console.WriteLine("\n=== All Characters ===\n");
 
-        // Step 1: Read all lines from the file
-        // File.ReadAllLines() returns a string array where each element is one line
+        //reads all lines from .csv and places into string array
         string[] lines = File.ReadAllLines(filePath);
-
-        // Step 2: Loop through each line and display it
-        // TODO: Instead of just printing the raw line, parse it and display nicely
-        //
-        // HINTS:
-        // - Use line.Split(',') to separate the fields
-        // - The fields are: Name (index 0), Class (1), Level (2), HP (3), Equipment (4)
-        // - Equipment contains multiple items separated by '|'
-        // - You can split equipment with: equipmentField.Split('|')
-        //
-        // Example output format:
-        // Name: John
-        // Class: Fighter
-        // Level: 1
-        // HP: 10
-        // Equipment: sword, shield, potion
-        // -------------------------
 
         foreach (string line in lines)
         {
@@ -125,33 +84,30 @@ class Program
         }
     }
 
-    /// <summary>
-    /// Prompts the user for character information and adds it to the file.
-    ///
-    /// TODO: Complete this method to:
-    /// 1. Prompt the user for: Name, Class, Level, HP, Equipment
-    /// 2. Format the data as a CSV line
-    /// 3. Append the new line to the file
-    ///
-    /// HINT: Use File.AppendAllText(filePath, newLine + "\n") to add to the file
-    /// </summary>
+    //Prompt user for new character details and append the character to the .csv file
     static void AddCharacter()
     {
         Console.WriteLine("\n=== Add New Character ===\n");
 
-        // TODO: Prompt for character details
-        // Example:
-        // Console.Write("Enter character name: ");
-        // string name = Console.ReadLine();
-        // ... continue for other fields ...
+        //Prompting and reading new character details
+        Console.Write("Enter character name: ");
+        string name = Console.ReadLine();
+        Console.Write("Enter character class: ");
+        string className = Console.ReadLine();
+        Console.Write("Enter character level: ");
+        string level = Console.ReadLine();
+        Console.Write("Enter character hP: ");
+        string hp = Console.ReadLine();
+        Console.Write("Enter character equipment: ");
+        string items = Console.ReadLine();
 
-        // TODO: Format as CSV line
-        // string newLine = $"{name},{characterClass},{level},{hp},{equipment}";
 
-        // TODO: Append to file
-        // File.AppendAllText(filePath, newLine + "\n");
+        //assembling new .csv line for appending
+        string newCharacter = $"{name},{className},{level},{hp},{items}";
 
-        Console.WriteLine("TODO: Implement character creation");
+        //appending new character to .csv (including \n to maintain correct .csv formatting - had to manually update base input.csv for accuracy)
+        //TODO: Come back and figure out how filePath works - debug output folder "input.csv" gets updated, however original filePath doesn't
+        File.AppendAllText(filePath, newCharacter + "\n");
     }
 
     /// <summary>
