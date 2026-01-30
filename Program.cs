@@ -1,7 +1,11 @@
+using System.Collections;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices.Marshalling;
+using W1_assignment_template;
 
 /// <summary>
+/// TODO: Revisit using CsvHelper to do all file reading/writing
+/// TODO: 
 class Program
 {
     // The path to our data file - we'll read and write character data here
@@ -9,6 +13,9 @@ class Program
 
     static void Main()
     {
+        // Program 'Setup'
+        Parser parser = new Parser();
+
         // Welcome message
         Console.WriteLine("=== Console RPG Character Manager ===");
         Console.WriteLine("Week 1: File I/O Basics\n");
@@ -81,13 +88,28 @@ class Program
         foreach (string line in lines)
         {
             //Altered to output formatted character data
-            string[] fields = line.Split(',');
-            Console.WriteLine($"Name:\t\t{fields[0]}");
-            Console.WriteLine($"Class:\t\t{fields[1]}");
-            Console.WriteLine($"Level:\t\t{fields[2]}");
-            Console.WriteLine($"HP:\t\t{fields[3]}");
-            Console.WriteLine($"Equipment:\t{fields[4]}");
-            Console.WriteLine($"\n======================\n");          
+            var lineArray = Parser.ParseLine(line);
+            var name = lineArray[0];
+            var className = lineArray[1];
+            var level = lineArray[2];
+            var hp = lineArray[3];
+            var equipment = lineArray[4];
+
+            //changed from arraylist to show .toList() functionality
+            var equipmentList = equipment.Split('|').ToList();
+
+            Console.WriteLine($"Name:\t\t{name}");
+            Console.WriteLine($"Class:\t\t{className}");
+            Console.WriteLine($"Level:\t\t{level}");
+            Console.WriteLine($"HP:\t\t{hp}");
+            Console.WriteLine($"Equipment list:");
+            foreach (string item in equipmentList)
+            {
+                Console.WriteLine($"\t\t- {item}");
+            }
+            Console.WriteLine($"\n======================\n");
+
+
         }
     }
 
@@ -106,11 +128,11 @@ class Program
         Console.Write("Enter character hp: ");
         string hp = Console.ReadLine();
         Console.Write("Enter character equipment: ");
-        string items = Console.ReadLine();
+        string equipment = Console.ReadLine();
 
 
         //assembling new .csv line for appending
-        string newCharacter = $"{name},{className},{level},{hp},{items}";
+        string newCharacter = $"{name},{className},{level},{hp},{equipment}";
 
         //appending new character to .csv (including \n to maintain correct .csv formatting - had to manually update base input.csv for accuracy)
         //TODO: Come back and figure out how filePath works - debug output folder "input.csv" gets updated, however original filePath doesn't
