@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices.Marshalling;
+using System.Threading.Tasks.Dataflow;
 using W1_assignment_template;
 
 /// <summary>
@@ -94,10 +95,10 @@ class Program
             var className = lineArray[1];
             var level = lineArray[2];
             var hp = lineArray[3];
-            var equipment = lineArray[4];
 
-            //changed from arraylist to show .toList() functionality
-            var equipmentList = equipment.Split('|').ToList();
+            //simplified from equipment -> equipmentList into just 1 line for equipmentList
+            var equipmentList = lineArray[4].Split('|').ToList();
+
 
             Console.WriteLine($"Name:\t\t{name}");
             Console.WriteLine($"Class:\t\t{className}");
@@ -120,20 +121,40 @@ class Program
         Console.WriteLine("\n=== Add New Character ===\n");
 
         //Prompting and reading new character details
-        Console.Write("Enter character name: ");
+        Console.Write("Enter character name > ");
         string name = Console.ReadLine();
-        Console.Write("Enter character class: ");
+        Console.Write("Enter character class > ");
         string className = Console.ReadLine();
-        Console.Write("Enter character level: ");
+        Console.Write("Enter character level > ");
         string level = Console.ReadLine();
-        Console.Write("Enter character hp: ");
+        Console.Write("Enter character hp > ");
         string hp = Console.ReadLine();
-        Console.Write("Enter character equipment: ");
-        string equipment = Console.ReadLine();
+        Console.Write("Enter character equipment separately, \"exit\" to finish > ");
+        ArrayList equipmentList = new ArrayList();
+        string currentItem = "";
 
+
+        //TODO: Revisit this section, not sure if ArrayList is best
+        //TODO: Could change loop syntax... depending
+        while (true)
+        {
+            
+            currentItem = Console.ReadLine();
+
+            if (currentItem == "exit")
+            {
+                break;
+            }
+
+            equipmentList.Add(currentItem);
+            Console.Write("\t> ");
+        }
+
+        var equipment = string.Join("|", equipmentList.ToArray());
 
         //assembling new .csv line for appending
         string newCharacter = $"{name},{className},{level},{hp},{equipment}";
+        
 
         //appending new character to .csv (including \n to maintain correct .csv formatting - had to manually update base input.csv for accuracy)
         File.AppendAllText(filePath, newCharacter + "\n");
@@ -156,6 +177,7 @@ class Program
         string[] lines = File.ReadAllLines(filePath);
 
         //Loop through lines to find the character
+        //TODO: Handle search better, consider edge cases.
         for (int i = 0; i < lines.Length; i++)
         {
             if (lines[i].Contains(nameToFind))
