@@ -5,7 +5,6 @@ using W1_assignment_template;
 
 /// <summary>
 /// TODO: Revisit using CsvHelper to do all file reading/writing
-/// TODO: 
 class Program
 {
     // The path to our data file - we'll read and write character data here
@@ -85,10 +84,12 @@ class Program
         //reads all lines from .csv and places into string array
         string[] lines = File.ReadAllLines(filePath);
 
-        foreach (string line in lines)
+        //altered to skip first line in .csv (headers) 
+        for (int i = 1; i < lines.Length; i++ )
         {
             //Altered to output formatted character data
-            var lineArray = Parser.ParseLine(line);
+            var lineArray = Parser.ParseLine(lines[i]);
+
             var name = lineArray[0];
             var className = lineArray[1];
             var level = lineArray[2];
@@ -135,7 +136,6 @@ class Program
         string newCharacter = $"{name},{className},{level},{hp},{equipment}";
 
         //appending new character to .csv (including \n to maintain correct .csv formatting - had to manually update base input.csv for accuracy)
-        //TODO: Come back and figure out how filePath works - debug output folder "input.csv" gets updated, however original filePath doesn't
         File.AppendAllText(filePath, newCharacter + "\n");
 
         Console.WriteLine($"\nYour new character {name} has been created!");

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CsvHelper.Configuration.Attributes;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -14,10 +15,11 @@ namespace W1_assignment_template
             string hp = "";
             string equipment = "";
 
+
             // if name starts with quotation, separate for storage then continue normally
             if (inputLine.StartsWith("\""))
             {
-                int closingQuote = inputLine.IndexOf("\" ", 1);
+                int closingQuote = inputLine.IndexOf("\"", 1);
                 name = inputLine.Substring(1, closingQuote - 1);
 
                 var restOfLine = inputLine.Substring(closingQuote + 2);
