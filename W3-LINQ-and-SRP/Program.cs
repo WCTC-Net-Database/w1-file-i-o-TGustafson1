@@ -79,11 +79,11 @@ class Program
     /// </summary>
     static void DisplayAllCharacters()
     {
-        Console.WriteLine("\n=== All Characters ===\n");
 
         CharacterReader reader = new CharacterReader(filePath);
         List<Character> charList = reader.ReadCharacters();
 
+        Console.WriteLine("\n=== All Characters ===\n");
 
         foreach (Character c in charList)
         {
@@ -104,6 +104,8 @@ class Program
     //Prompt user for new character details and append the character to the file
     static void AddCharacter()
     {
+        CharacterWriter writer = new CharacterWriter(filePath);
+
         Console.WriteLine("\n=== Add New Character ===\n");
 
         //Prompting and reading new character details
@@ -136,12 +138,16 @@ class Program
 
         var equipment = string.Join("|", equipmentList.ToArray());
 
-        //assembling new .csv line for appending
-        string newCharacter = $"{name},{className},{level},{hp},{equipment}";
-        
 
-        //appending new character to .csv (including \n to maintain correct .csv formatting - had to manually update base input.csv for accuracy)
-        File.AppendAllText(filePath, newCharacter + "\n");
+        //TODO: Test appending character vs full rewrite
+        writer.AppendCharacter(new Character
+        {
+            Name = name,
+            Profession = className,
+            Level = Convert.ToInt32(level),
+            HP = Convert.ToInt32(hp),
+            Equipment = equipment.Split("|").ToArray()
+        });
 
         Console.WriteLine($"\nYour new character {name} has been created!");
     }
