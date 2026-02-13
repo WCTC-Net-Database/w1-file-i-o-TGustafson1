@@ -19,7 +19,7 @@ namespace W3_LINQ_and_SRP.Services
         public void WriteAllLines(List<Character> characters)
         {
             var lines = characters.Select(c => FormatCSVCharacter(c)).ToList();
-
+            File.WriteAllLines(_filePath, lines);
 
         }
 
@@ -34,7 +34,22 @@ namespace W3_LINQ_and_SRP.Services
         //assembling new .csv line for appending
         private string FormatCSVCharacter(Character character)
         {
-            string newCharacter = $"{character.Name},{character.Profession},{character.Level},{character.HP},{string.Join("|", character.Equipment.ToArray())}";
+           
+            string quotedName;
+            string newCharacter;
+
+            //handle names with commas by wrapping in quotes
+            if (character.Name.Contains(','))
+            {
+                quotedName = $"\"{character.Name}\"";
+                newCharacter = $"{quotedName},{character.Profession},{character.Level},{character.HP},{string.Join("|", character.Equipment.ToArray())}";
+
+            }
+            else
+            {
+                newCharacter = $"{character.Name},{character.Profession},{character.Level},{character.HP},{string.Join("|", character.Equipment.ToArray())}";
+            }
+
             return newCharacter;
         }
 

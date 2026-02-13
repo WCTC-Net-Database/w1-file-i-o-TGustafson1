@@ -59,10 +59,10 @@ namespace W3_LINQ_and_SRP.Services
             // if name starts with quotation, separate for storage then continue normally
             if (inputLine.StartsWith("\""))
             {
-                int closingQuote = inputLine.IndexOf("\"", 1);
-                name = inputLine.Substring(1, closingQuote - 1);
+                int closingQuoteIndex = inputLine.IndexOf("\"", 1);
+                name = inputLine.Substring(1, closingQuoteIndex - 1);
 
-                var restOfLine = inputLine.Substring(closingQuote + 2);
+                var restOfLine = inputLine.Substring(closingQuoteIndex + 2);
 
                 var lines = restOfLine.Split(",");
                 className = lines[0];

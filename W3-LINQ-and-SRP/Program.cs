@@ -138,8 +138,6 @@ class Program
 
         var equipment = string.Join("|", equipmentList.ToArray());
 
-
-        //TODO: Test appending character vs full rewrite
         writer.AppendCharacter(new Character
         {
             Name = name,
@@ -149,7 +147,14 @@ class Program
             Equipment = equipment.Split("|").ToArray()
         });
 
-        Console.WriteLine($"\nYour new character {name} has been created!");
+        //Short test of full rewrite
+        //CharacterReader reader = new CharacterReader(filePath);
+        //List<Character> charList = reader.ReadCharacters();
+
+        //charList.Add(new Character(name, className, int.Parse(level), int.Parse(hp), equipment.Split("|")));
+        //writer.WriteAllLines(charList);
+
+        //Console.WriteLine($"\nYour new character {name} has been created!");
     }
 
     /// <summary>
