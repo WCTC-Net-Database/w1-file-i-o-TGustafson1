@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace W1_assignment_template
+namespace W3_LINQ_and_SRP
 {
     public class Parser
     {
