@@ -1,4 +1,4 @@
-Name,Class,Level,HP,Equipment
+Name,Profession,Level,HP,Equipment
 "John, Brave",Fighter,1,10,sword|shield|potion
 Jane,Wizard,2,6,staff|robe|book
 "Bob, Sneaky",Rogue,3,8,dagger|lockpick|cloak

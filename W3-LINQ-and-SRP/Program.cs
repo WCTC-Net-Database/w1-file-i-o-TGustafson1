@@ -142,70 +142,100 @@ class Program
 
         var equipment = string.Join("|", equipmentList.ToArray());
 
-        writer.AppendCharacter(new Character
-        {
-            Name = name,
-            Profession = className,
-            Level = Convert.ToInt32(level),
-            HP = Convert.ToInt32(hp),
-            Equipment = equipment.Split("|").ToArray()
-        });
+        //writer.AppendCharacter(new Character
+        //{
+        //    Name = name,
+        //    Profession = className,
+        //    Level = Convert.ToInt32(level),
+        //    HP = Convert.ToInt32(hp),
+        //    Equipment = equipment.Split("|").ToArray()
+        //});
 
         //Short test of full rewrite
-        //CharacterReader reader = new CharacterReader(filePath);
-        //List<Character> charList = reader.ReadCharacters();
+        CharacterReader reader = new CharacterReader(filePath);
+        List<Character> charList = reader.ReadCharacters();
 
-        //charList.Add(new Character(name, className, int.Parse(level), int.Parse(hp), equipment.Split("|")));
-        //writer.WriteAllLines(charList);
+        charList.Add(new Character(name, className, int.Parse(level), int.Parse(hp), equipment.Split("|")));
+        writer.WriteAllLines(charList);
 
         Console.WriteLine($"\nYour new character {name} has been created!");
     }
 
-    /// <summary>
-    /// Finds a character by name and increases their level by 1.
-    /// </summary>
-    // TODO: Fix this to work with quotations
+    // Finds a character by name and increases their level by 1.
+    // TODO: Fix this to work with quotations?
     static void LevelUpCharacter()
     {
         Console.WriteLine("\n=== Level Up Character ===\n");
+
+        CharacterReader reader = new CharacterReader(filePath);
+        CharacterWriter writer = new CharacterWriter(filePath);
+        List<Character> characters = reader.ReadCharacters();
 
         //Prompt for character name to level up
         Console.Write("Enter character name to level up: ");
         string nameToFind = Console.ReadLine();
 
+        try
+        {
+            foreach (Character character in characters)
+            {
+                if (character.Name == nameToFind)
+                {
+                    character.Level += 1;
+                    Console.WriteLine($"\n{character.Name} has leveled up to level {character.Level}!");
+                    break;
+                }
+            }
+
+            writer.WriteAllLines(characters);
+        }
+        catch
+        {
+            Console.WriteLine("\nThere was an error with the Character search.");
+        }
+       
+
+
         //Read all lines from the file and place into array
-        string[] lines = File.ReadAllLines(filePath);
+        //string[] lines = File.ReadAllLines(filePath);
 
         //Loop through lines to find the character
         //TODO: Handle search better, consider edge cases.
-        for (int i = 0; i < lines.Length; i++)
-        {
-            if (lines[i].Contains(nameToFind))
-            {
-                //Parse the line
-                string[] details = lines[i].Split(",");
+        //for (int i = 0; i < lines.Length; i++)
+        //{
+        //    try
+        //    {
+        //        if (lines[i].Contains(nameToFind))
+        //        {
+        //            //Parse the line
+        //            string[] details = lines[i].Split(",");
 
-                //convert to int and increase level
-                int charLevel = Convert.ToInt32(details[2]) + 1;
+        //            //convert to int and increase level
+        //            int charLevel = Convert.ToInt32(details[2]) + 1;
 
-                //create new .csv line 
-                lines[i] = $"{details[0]},{details[1]},{charLevel},{details[3]},{details[4]}";
+        //            //create new .csv line 
+        //            lines[i] = $"{details[0]},{details[1]},{charLevel},{details[3]},{details[4]}";
 
-                //write all lines to .csv
-                File.WriteAllLines(filePath, lines);
+        //            //write all lines to .csv
+        //            File.WriteAllLines(filePath, lines);
 
-                Console.WriteLine($"\n{details[0]} has leveled up!");
-                break;
-            }
-        }
+        //            Console.WriteLine($"\n{details[0]} has leveled up!");
+        //            break;
+        //        }
+        //    }
+        //    catch
+        //    {
+        //        Console.WriteLine("\nThere was an error with the Character search.");
+        //    }
+        //}
+
+
 
     }
-    //TODO: Add find Character option/method to menu 
 
     static void FindCharacter()
     {
         CharacterReader reader = new CharacterReader(filePath);
-
 
         Console.WriteLine("\n=== Find Character ===\n");
         Console.Write("Enter character name to find > ");

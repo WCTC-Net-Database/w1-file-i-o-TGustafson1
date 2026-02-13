@@ -30,7 +30,6 @@ namespace W3_LINQ_and_SRP.Services
             File.AppendAllText(_filePath, characterText + "\n");
         }
 
-
         //assembling new .csv line for appending
         private string FormatCSVCharacter(Character character)
         {
