@@ -31,7 +31,7 @@ namespace W3_LINQ_and_SRP.Models
 
         public override string ToString()
         {
-            return $"Name: {Name}, Profession: {Profession}, Level: {Level}, HP: {HP}, Equipment: [{string.Join(", ", Equipment)}]";
+            return $"Name: {Name} - Profession: {Profession} - Level: {Level} - HP: {HP} - Equipment: [{string.Join(", ", Equipment)}]";
         }
     }
 }

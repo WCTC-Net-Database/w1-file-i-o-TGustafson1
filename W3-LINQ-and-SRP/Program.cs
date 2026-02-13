@@ -42,6 +42,9 @@ class Program
                 case "3":
                     LevelUpCharacter();
                     break;
+                case "4":
+                    FindCharacter();
+                    break;
                 case "0":
                     running = false;
                     Console.WriteLine("\nGoodbye! Thanks for playing.");
@@ -71,6 +74,7 @@ class Program
         Console.WriteLine("1. Display All Characters");
         Console.WriteLine("2. Add New Character");
         Console.WriteLine("3. Level Up Character");
+        Console.WriteLine("4. Find Character");
         Console.WriteLine("0. Exit");
     }
 
@@ -121,7 +125,7 @@ class Program
         ArrayList equipmentList = new ArrayList();
         string currentItem = "";
 
-        //TODO: Could change loop syntax... depending
+        //loop adding items until user enters "exit"
         while (true)
         {
             
@@ -154,12 +158,13 @@ class Program
         //charList.Add(new Character(name, className, int.Parse(level), int.Parse(hp), equipment.Split("|")));
         //writer.WriteAllLines(charList);
 
-        //Console.WriteLine($"\nYour new character {name} has been created!");
+        Console.WriteLine($"\nYour new character {name} has been created!");
     }
 
     /// <summary>
     /// Finds a character by name and increases their level by 1.
     /// </summary>
+    // TODO: Fix this to work with quotations
     static void LevelUpCharacter()
     {
         Console.WriteLine("\n=== Level Up Character ===\n");
@@ -193,5 +198,20 @@ class Program
                 break;
             }
         }
+
+    }
+    //TODO: Add find Character option/method to menu 
+
+    static void FindCharacter()
+    {
+        CharacterReader reader = new CharacterReader(filePath);
+
+
+        Console.WriteLine("\n=== Find Character ===\n");
+        Console.Write("Enter character name to find > ");
+        string nameToFind = Console.ReadLine();
+
+        Console.WriteLine("\n" + reader.FindByName(reader.ReadCharacters(), nameToFind));
+
     }
 }
