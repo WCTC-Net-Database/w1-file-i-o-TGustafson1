@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Reflection.Emit;
 using System.Text;
@@ -18,7 +19,12 @@ namespace W3_LINQ_and_SRP.Services
 
         public void WriteAllLines(List<Character> characters)
         {
-            var lines = characters.Select(c => FormatCSVCharacter(c)).ToList();
+            List<string> lines = new List<string>();
+            lines.Add("Name,Profession,Level,HP,Equipment\r\n");
+
+            var chars = characters.Select(c => FormatCSVCharacter(c)).ToList();
+
+            lines.AddRange(chars);
             File.WriteAllLines(_filePath, lines);
 
         }

@@ -142,23 +142,23 @@ class Program
 
         var equipment = string.Join("|", equipmentList.ToArray());
 
-        //writer.AppendCharacter(new Character
-        //{
-        //    Name = name,
-        //    Profession = className,
-        //    Level = Convert.ToInt32(level),
-        //    HP = Convert.ToInt32(hp),
-        //    Equipment = equipment.Split("|").ToArray()
-        //});
+        writer.AppendCharacter(new Character
+        {
+            Name = name,
+            Profession = className,
+            Level = Convert.ToInt32(level),
+            HP = Convert.ToInt32(hp),
+            Equipment = equipment.Split("|").ToArray()
+        });
 
         //Short test of full rewrite
-        CharacterReader reader = new CharacterReader(filePath);
-        List<Character> charList = reader.ReadCharacters();
+        //CharacterReader reader = new CharacterReader(filePath);
+        //List<Character> charList = reader.ReadCharacters();
 
-        charList.Add(new Character(name, className, int.Parse(level), int.Parse(hp), equipment.Split("|")));
-        writer.WriteAllLines(charList);
+        //charList.Add(new Character(name, className, int.Parse(level), int.Parse(hp), equipment.Split("|")));
+        //writer.WriteAllLines(charList);
 
-        Console.WriteLine($"\nYour new character {name} has been created!");
+        //Console.WriteLine($"\nYour new character {name} has been created!");
     }
 
     // Finds a character by name and increases their level by 1.
