@@ -17,49 +17,36 @@ namespace W3_LINQ_and_SRP.Services
             _filePath = filePath;
         }
 
+        //read all characters from file and return as List
         public List<Character> ReadCharacters()
         {
             //reads all lines from file and places into string array
             string[] lines = File.ReadAllLines(_filePath);
-            List<Character> charArray = new List<Character>();
+            List<Character> charList = new List<Character>();
 
             //skips first line in file (headers) 
             for (int i = 1; i < lines.Length; i++)
             {
-
-                charArray.Add(ParseCSVLine(lines[i]));
-
-
-                //TODO: copy this into appropriate spot in program.cs
-
-                //Console.WriteLine($"Name:\t\t{name}");
-                //Console.WriteLine($"Class:\t\t{className}");
-                //Console.WriteLine($"Level:\t\t{level}");
-                //Console.WriteLine($"HP:\t\t{hp}");
-                //Console.WriteLine($"Equipment list:");
-                //foreach (string item in equipmentList)
-                //{
-                //    Console.WriteLine($"\t\t- {item}");
-                //}
-                //Console.WriteLine($"\n======================\n");
-
-
+                charList.Add(ParseCSVLine(lines[i]));
             }
 
-            return charArray;
+            return charList;
         }
 
+        // uses LINQ to return first character with matching name
         public Character FindByName(List<Character> characters, string name)
         {
             //TODO: Is null acceptable here?
             return characters.FirstOrDefault(c => c.Name == name);
         }
 
+        // using LINQ to return a List of characters with matching profession
         public List<Character> FindByProfession(List<Character> characters, string profession)
         {
             return characters.Where(c => c.Profession == profession).ToList();
         }
 
+        //moved from Parser.cs, parses a line of CSV into a Character object
         private Character ParseCSVLine(string inputLine)
         {
             string name = "";

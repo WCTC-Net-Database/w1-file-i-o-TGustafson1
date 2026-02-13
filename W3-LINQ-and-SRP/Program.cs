@@ -3,6 +3,8 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices.Marshalling;
 using System.Threading.Tasks.Dataflow;
 using W3_LINQ_and_SRP;
+using W3_LINQ_and_SRP.Models;
+using W3_LINQ_and_SRP.Services;
 
 /// <summary>
 /// TODO: Revisit using CsvHelper to do all file reading/writing
@@ -73,16 +75,33 @@ class Program
     }
 
     /// <summary>
-    /// Reads all characters from the CSV file and displays them.
+    /// Displays all characters by reading from file and printing.
     /// </summary>
     static void DisplayAllCharacters()
     {
         Console.WriteLine("\n=== All Characters ===\n");
 
-        
+        CharacterReader reader = new CharacterReader(filePath);
+        List<Character> charList = reader.ReadCharacters();
+
+
+        foreach (Character c in charList)
+        {
+            Console.WriteLine($"Name:\t\t{c.Name}");
+            Console.WriteLine($"Class:\t\t{c.Profession}");
+            Console.WriteLine($"Level:\t\t{c.Level}");
+            Console.WriteLine($"HP:\t\t{c.HP}");
+            Console.WriteLine($"Equipment list:");
+            foreach (string item in c.Equipment)
+            {
+                Console.WriteLine($"\t\t- {item}");
+            }
+            Console.WriteLine($"\n======================\n");
+        }
+
     }
 
-    //Prompt user for new character details and append the character to the .csv file
+    //Prompt user for new character details and append the character to the file
     static void AddCharacter()
     {
         Console.WriteLine("\n=== Add New Character ===\n");
