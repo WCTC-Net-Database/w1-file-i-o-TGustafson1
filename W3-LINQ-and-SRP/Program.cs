@@ -13,9 +13,6 @@ class Program
 
     static void Main()
     {
-        // Program 'Setup'
-        Parser parser = new Parser();
-
         // Welcome message
         Console.WriteLine("=== Console RPG Character Manager ===");
         Console.WriteLine("Week 1: File I/O Basics\n");
@@ -82,37 +79,7 @@ class Program
     {
         Console.WriteLine("\n=== All Characters ===\n");
 
-        //reads all lines from .csv and places into string array
-        string[] lines = File.ReadAllLines(filePath);
-
-        //altered to skip first line in .csv (headers) 
-        for (int i = 1; i < lines.Length; i++ )
-        {
-            //Altered to output formatted character data
-            var lineArray = Parser.ParseLine(lines[i]);
-
-            var name = lineArray[0];
-            var className = lineArray[1];
-            var level = lineArray[2];
-            var hp = lineArray[3];
-
-            //simplified from equipment -> equipmentList into just 1 line for equipmentList
-            var equipmentList = lineArray[4].Split('|').ToList();
-
-
-            Console.WriteLine($"Name:\t\t{name}");
-            Console.WriteLine($"Class:\t\t{className}");
-            Console.WriteLine($"Level:\t\t{level}");
-            Console.WriteLine($"HP:\t\t{hp}");
-            Console.WriteLine($"Equipment list:");
-            foreach (string item in equipmentList)
-            {
-                Console.WriteLine($"\t\t- {item}");
-            }
-            Console.WriteLine($"\n======================\n");
-
-
-        }
+        
     }
 
     //Prompt user for new character details and append the character to the .csv file
@@ -133,8 +100,6 @@ class Program
         ArrayList equipmentList = new ArrayList();
         string currentItem = "";
 
-
-        //TODO: Revisit this section, not sure if ArrayList is best
         //TODO: Could change loop syntax... depending
         while (true)
         {
