@@ -1,6 +1,8 @@
+using Spectre.Console;
 using System.Collections;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices.Marshalling;
+using System.Text;
 using System.Threading.Tasks.Dataflow;
 using W3_LINQ_and_SRP;
 using W3_LINQ_and_SRP.Models;
@@ -15,9 +17,26 @@ class Program
 
     static void Main()
     {
+        // Spectre Colors: red3 - #AF0000, DeepSkyBlue4_2 - #005FAF, LightCyan3 - #AFD7D7, MediumPurple4 - #5F5F87
+        // Spoof loading program
+        AnsiConsole.Progress()
+            .Start(ctx =>
+            {
+                var task = ctx.AddTask("Loading Program");
+
+                while (!ctx.IsFinished)
+                {
+                    task.Increment(2);
+                    Thread.Sleep(50);
+                }
+            });
+
+        AnsiConsole.MarkupLine("[DeepSkyBlue4_2]Ready![/]");
+        Thread.Sleep(1800);
+        Console.Clear();
+
         // Welcome message
-        Console.WriteLine("=== Console RPG Character Manager ===");
-        Console.WriteLine("Week 1: File I/O Basics\n");
+        AnsiConsole.MarkupLine("\n\n[bold red3]===[/] [bold]Console RPG Character Manager[/] [bold red3]===[/]\n");
 
         // Main program loop - keeps running until user chooses to exit
         bool running = true;
@@ -27,7 +46,7 @@ class Program
             DisplayMenu();
 
             // Get user's choice
-            Console.Write("\nEnter your choice: ");
+            AnsiConsole.Markup("[MediumPurple4]Enter your choice >> [/]");
             string choice = Console.ReadLine();
 
             // Process the user's choice using a switch statement
@@ -54,10 +73,9 @@ class Program
                     break;
             }
 
-            // Add a blank line for readability between menu displays
             if (running)
             {
-                Console.WriteLine("\nPress any key to continue...");
+                AnsiConsole.Markup("\n[MediumPurple4]Press any key to continue...[/]");
                 Console.ReadKey();
                 Console.Clear();
             }
@@ -70,12 +88,16 @@ class Program
 
     static void DisplayMenu()
     {
-        Console.WriteLine("What would you like to do?");
-        Console.WriteLine("1. Display All Characters");
-        Console.WriteLine("2. Add New Character");
-        Console.WriteLine("3. Level Up Character");
-        Console.WriteLine("4. Find Character");
-        Console.WriteLine("0. Exit");
+        AnsiConsole.MarkupLine("[bold DeepSkyBlue4_2]What would you like to do?[/]");
+        var menuTable = new Table()
+            .AddColumn("[DeepSkyBlue4_2]Input[/]")
+            .AddColumn("[DeepSkyBlue4_2]Description[/]")
+            .AddRow("[LightCyan3]1.[/]", "Display All Characters")
+            .AddRow("[LightCyan3]2.[/]", "Add New Character")
+            .AddRow("[LightCyan3]3.[/]", "Level Up Character")
+            .AddRow("[LightCyan3]4.[/]", "Find Character")
+            .AddRow("[LightCyan3]0.[/]", "Exit");
+        AnsiConsole.Write(menuTable);
     }
 
     /// <summary>
@@ -87,21 +109,27 @@ class Program
         CharacterReader reader = new CharacterReader(filePath);
         List<Character> charList = reader.ReadCharacters();
 
-        Console.WriteLine("\n=== All Characters ===\n");
+        AnsiConsole.MarkupLine("\n\n[bold red3]===[/] [bold]All Characters[/] [bold red3]===[/]\n");
+
+        var characterTable = new Table()
+                .AddColumn("[DeepSkyBlue4_2]Name[/]")
+                .AddColumn("[DeepSkyBlue4_2]Class[/]")
+                .AddColumn("[DeepSkyBlue4_2]Level[/]")
+                .AddColumn("[DeepSkyBlue4_2]HP[/]")
+                .AddColumn("[DeepSkyBlue4_2]Equipment list[/]");
 
         foreach (Character c in charList)
         {
-            Console.WriteLine($"Name:\t\t{c.Name}");
-            Console.WriteLine($"Class:\t\t{c.Profession}");
-            Console.WriteLine($"Level:\t\t{c.Level}");
-            Console.WriteLine($"HP:\t\t{c.HP}");
-            Console.WriteLine($"Equipment list:");
-            foreach (string item in c.Equipment)
-            {
-                Console.WriteLine($"\t\t- {item}");
-            }
-            Console.WriteLine($"\n======================\n");
+                characterTable.AddRow(
+                    $"[LightCyan3]{c.Name}[/]", 
+                    $"[LightCyan3]{c.Profession}[/]", 
+                    $"[LightCyan3]{c.Level}[/]", 
+                    $"[LightCyan3]{c.HP}[/]", 
+                    $"[LightCyan3]{string.Join(", ", c.Equipment)}[/]"
+                    );            
         }
+
+        AnsiConsole.Write(characterTable);
 
     }
 
@@ -110,18 +138,18 @@ class Program
     {
         CharacterWriter writer = new CharacterWriter(filePath);
 
-        Console.WriteLine("\n=== Add New Character ===\n");
+        AnsiConsole.MarkupLine("\n[bold red3]===[/] [bold]Add New Character[/] [bold red3]===[/]\n");
 
         //Prompting and reading new character details
-        Console.Write("Enter character name > ");
+        Console.Write("Enter character name >> ");
         string name = Console.ReadLine();
-        Console.Write("Enter character class > ");
+        Console.Write("Enter character class >> ");
         string className = Console.ReadLine();
-        Console.Write("Enter character level > ");
+        Console.Write("Enter character level >> ");
         string level = Console.ReadLine();
-        Console.Write("Enter character hp > ");
+        Console.Write("Enter character hp >> ");
         string hp = Console.ReadLine();
-        Console.Write("Enter character equipment separately, \"exit\" to finish > ");
+        Console.Write("Enter character equipment separately, \"exit\" to finish >> ");
         ArrayList equipmentList = new ArrayList();
         string currentItem = "";
 
@@ -137,7 +165,7 @@ class Program
             }
 
             equipmentList.Add(currentItem);
-            Console.Write("\t> ");
+            Console.Write("\t>> ");
         }
 
         var equipment = string.Join("|", equipmentList.ToArray());
@@ -165,15 +193,18 @@ class Program
     // TODO: Fix this to work with quotations?
     static void LevelUpCharacter()
     {
-        Console.WriteLine("\n=== Level Up Character ===\n");
+        AnsiConsole.MarkupLine("\n[bold red3]===[/] [bold]Level Up Character[/] [bold red3]===[/]\n");
 
         CharacterReader reader = new CharacterReader(filePath);
         CharacterWriter writer = new CharacterWriter(filePath);
         List<Character> characters = reader.ReadCharacters();
 
         //Prompt for character name to level up
-        Console.Write("Enter character name to level up: ");
+        //TODO: Could potentially output all Characters for easier choice when leveling?
+        Console.Write("Enter character name to level up >> ");
         string nameToFind = Console.ReadLine();
+
+
 
         try
         {
@@ -182,7 +213,7 @@ class Program
                 if (character.Name == nameToFind)
                 {
                     character.Level += 1;
-                    Console.WriteLine($"\n{character.Name} has leveled up to level {character.Level}!");
+                    AnsiConsole.MarkupLine($"\n[bold DeepSkyBlue4_2]{character.Name} has leveled up to level {character.Level}![/]");
                     break;
                 }
             }
@@ -200,7 +231,6 @@ class Program
         //string[] lines = File.ReadAllLines(filePath);
 
         //Loop through lines to find the character
-        //TODO: Handle search better, consider edge cases.
         //for (int i = 0; i < lines.Length; i++)
         //{
         //    try
@@ -237,11 +267,28 @@ class Program
     {
         CharacterReader reader = new CharacterReader(filePath);
 
-        Console.WriteLine("\n=== Find Character ===\n");
-        Console.Write("Enter character name to find > ");
+        AnsiConsole.MarkupLine("\n[bold red3]===[/] [bold]Find Character[/] [bold red3]===[/]\n");
+        Console.Write("Enter character name to find >> ");
         string nameToFind = Console.ReadLine();
 
-        Console.WriteLine("\n" + reader.FindByName(reader.ReadCharacters(), nameToFind));
+        Character c = reader.FindByName(reader.ReadCharacters(), nameToFind);
+
+        var characterTable = new Table()
+                .AddColumn("[DeepSkyBlue4_2]Name[/]")
+                .AddColumn("[DeepSkyBlue4_2]Class[/]")
+                .AddColumn("[DeepSkyBlue4_2]Level[/]")
+                .AddColumn("[DeepSkyBlue4_2]HP[/]")
+                .AddColumn("[DeepSkyBlue4_2]Equipment list[/]")
+                .AddRow(
+                    $"[LightCyan3]{c.Name}[/]",
+                    $"[LightCyan3]{c.Profession}[/]",
+                    $"[LightCyan3]{c.Level}[/]",
+                    $"[LightCyan3]{c.HP}[/]",
+                    $"[LightCyan3]{string.Join(", ", c.Equipment)}[/]"
+                    );
+
+        AnsiConsole.Write(characterTable);
+
 
     }
 }
