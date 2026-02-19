@@ -6,7 +6,7 @@ using Console_RPG.Services;
 class Program
 {
     // The path to our data file - we'll read and write character data here
-    static string filePath = "Files/input.csv";
+    static string filePath = "Files/input.json";
     // File handler which can swap between Json and CSV
     static IFileHandler handler = new JsonFileHandler(filePath);
 
@@ -56,6 +56,9 @@ class Program
                 case "4":
                     FindCharacter();
                     break;
+                case "5":
+                    SwitchFileFormat();
+                    break;
                 case "0":
                     running = false;
                     Console.WriteLine("\nGoodbye! Thanks for playing.");
@@ -88,6 +91,7 @@ class Program
             .AddRow("[LightCyan3]2.[/]", "Add New Character")
             .AddRow("[LightCyan3]3.[/]", "Level Up Character")
             .AddRow("[LightCyan3]4.[/]", "Find Character")
+            .AddRow("[LightCyan3]5.[/]", "Switch File Format")
             .AddRow("[LightCyan3]0.[/]", "Exit");
         AnsiConsole.Write(menuTable);
     }
@@ -226,5 +230,29 @@ class Program
 
         AnsiConsole.Write(characterTable);
 
+    }
+
+    static void SwitchFileFormat()
+    {
+        AnsiConsole.MarkupLine("\n[bold red3]===[/] [bold]Switch File Format[/] [bold red3]===[/]\n");
+        AnsiConsole.MarkupLine("[DeepSkyBlue4_2]Current file format: [/]" + (handler is JsonFileHandler ? "[LightCyan3]JSON[/]" : "[LightCyan3]CSV[/]"));
+        AnsiConsole.MarkupLine("[DeepSkyBlue4_2]Enter new file format (json/csv) >> [/]");
+        string newFormat = Console.ReadLine();
+        if (newFormat.ToLower() == "json")
+        {
+            filePath = "Files/input.json";
+            handler = new JsonFileHandler(filePath);
+            AnsiConsole.MarkupLine("\n[DeepSkyBlue4_2]Switched to JSON file format![/]");
+        }
+        else if (newFormat.ToLower() == "csv")
+        {
+            filePath = "Files/input.csv";
+            handler = new CSVFileHandler(filePath);
+            AnsiConsole.MarkupLine("\n[DeepSkyBlue4_2]Switched to CSV file format![/]");
+        }
+        else
+        {
+            AnsiConsole.MarkupLine("\n[red3]Invalid file format. Please enter 'json' or 'csv'.[/]");
+        }
     }
 }

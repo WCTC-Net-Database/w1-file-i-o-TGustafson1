@@ -8,7 +8,7 @@ namespace Console_RPG.Services
     internal class JsonFileHandler : IFileHandler
     {
         private readonly string _filePath;
-        private readonly JsonSerializerOptions _options = new() { WriteIndented = true };
+        private readonly JsonSerializerOptions _options = new() { WriteIndented = true, PropertyNameCaseInsensitive = true }; // made case insensitive to fix bug
 
         public JsonFileHandler(string filePath)
         {
@@ -18,7 +18,7 @@ namespace Console_RPG.Services
         public List<Character> ReadAll()
         {
             string json = File.ReadAllText(_filePath);
-            return JsonSerializer.Deserialize<List<Character>>(json) ?? new List<Character>();
+            return JsonSerializer.Deserialize<List<Character>>(json, _options) ?? new List<Character>();
         }
 
         public void AppendCharacter(Character character)
