@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace W3_LINQ_and_SRP.Models
+﻿namespace Console_RPG
 {
     public class Character
     {

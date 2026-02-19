@@ -1,12 +1,7 @@
 using Spectre.Console;
 using System.Collections;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices.Marshalling;
-using System.Text;
-using System.Threading.Tasks.Dataflow;
-using W3_LINQ_and_SRP;
-using W3_LINQ_and_SRP.Models;
-using W3_LINQ_and_SRP.Services;
+using Console_RPG;
+using Console_RPG.Services;
 
 /// <summary>
 /// TODO: Revisit using CsvHelper to do all file reading/writing
@@ -106,8 +101,8 @@ class Program
     static void DisplayAllCharacters()
     {
 
-        CharacterReader reader = new CharacterReader(filePath);
-        List<Character> charList = reader.ReadCharacters();
+        IFileHandler handler = new CSVFileHandler(filePath);
+        List<Character> charList = handler.ReadAll();
 
         AnsiConsole.MarkupLine("\n\n[bold red3]===[/] [bold]All Characters[/] [bold red3]===[/]\n");
 
@@ -136,7 +131,7 @@ class Program
     //Prompt user for new character details and append the character to the file
     static void AddCharacter()
     {
-        CharacterWriter writer = new CharacterWriter(filePath);
+        IFileHandler handler = new CSVFileHandler(filePath);
 
         AnsiConsole.MarkupLine("\n[bold red3]===[/] [bold]Add New Character[/] [bold red3]===[/]\n");
 
@@ -170,7 +165,7 @@ class Program
 
         var equipment = string.Join("|", equipmentList.ToArray());
 
-        writer.AppendCharacter(new Character
+        handler.AppendCharacter(new Character
         {
             Name = name,
             Profession = className,
@@ -195,9 +190,8 @@ class Program
     {
         AnsiConsole.MarkupLine("\n[bold red3]===[/] [bold]Level Up Character[/] [bold red3]===[/]\n");
 
-        CharacterReader reader = new CharacterReader(filePath);
-        CharacterWriter writer = new CharacterWriter(filePath);
-        List<Character> characters = reader.ReadCharacters();
+        IFileHandler handler = new CSVFileHandler(filePath);
+        List<Character> characters = handler.ReadAll();
 
         //Prompt for character name to level up
         //TODO: Could potentially output all Characters for easier choice when leveling?
@@ -219,60 +213,24 @@ class Program
                 }
             }
 
-            writer.WriteAllLines(characters);
+            handler.WriteAll(characters);
         }
         catch
         {
             Console.WriteLine("\nThere was an error with the Character search.");
         }
-       
-
-
-        //Read all lines from the file and place into array
-        //string[] lines = File.ReadAllLines(filePath);
-
-        //Loop through lines to find the character
-        //for (int i = 0; i < lines.Length; i++)
-        //{
-        //    try
-        //    {
-        //        if (lines[i].Contains(nameToFind))
-        //        {
-        //            //Parse the line
-        //            string[] details = lines[i].Split(",");
-
-        //            //convert to int and increase level
-        //            int charLevel = Convert.ToInt32(details[2]) + 1;
-
-        //            //create new .csv line 
-        //            lines[i] = $"{details[0]},{details[1]},{charLevel},{details[3]},{details[4]}";
-
-        //            //write all lines to .csv
-        //            File.WriteAllLines(filePath, lines);
-
-        //            Console.WriteLine($"\n{details[0]} has leveled up!");
-        //            break;
-        //        }
-        //    }
-        //    catch
-        //    {
-        //        Console.WriteLine("\nThere was an error with the Character search.");
-        //    }
-        //}
-
-
 
     }
 
     static void FindCharacter()
     {
-        CharacterReader reader = new CharacterReader(filePath);
+        IFileHandler handler = new CSVFileHandler(filePath);
 
         AnsiConsole.MarkupLine("\n[bold red3]===[/] [bold]Find Character[/] [bold red3]===[/]\n");
         Console.Write("Enter character name to find >> ");
         string nameToFind = Console.ReadLine();
 
-        Character c = reader.FindByName(reader.ReadCharacters(), nameToFind);
+        Character c = handler.FindByName(handler.ReadAll(), nameToFind);
 
         var characterTable = new Table()
                 .AddColumn("[DeepSkyBlue4_2]Name[/]")
@@ -289,7 +247,6 @@ class Program
                     );
 
         AnsiConsole.Write(characterTable);
-
 
     }
 }

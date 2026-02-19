@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿namespace Console_RPG;
 
-namespace W4_Solid_OCP.Interfaces
+internal interface IFileHandler
 {
-    internal interface IFileHandler
-    {
-
-    }
+    List<Character> ReadAll();
+    void WriteAll(List<Character> characters);
+    void AppendCharacter(Character character);
+    Character? FindByName(List<Character> characters, string name);
+    List<Character> FindByProfession(List<Character> characters, string profession);
 }
