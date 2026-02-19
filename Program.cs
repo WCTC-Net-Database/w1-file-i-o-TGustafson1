@@ -3,12 +3,12 @@ using System.Collections;
 using Console_RPG;
 using Console_RPG.Services;
 
-/// <summary>
-/// TODO: Revisit using CsvHelper to do all file reading/writing
 class Program
 {
     // The path to our data file - we'll read and write character data here
     static string filePath = "Files/input.csv";
+    // File handler which can swap between Json and CSV
+    static IFileHandler handler = new JsonFileHandler(filePath);
 
     static void Main()
     {
@@ -37,14 +37,11 @@ class Program
         bool running = true;
         while (running)
         {
-            // Display the menu options
             DisplayMenu();
 
-            // Get user's choice
             AnsiConsole.Markup("[MediumPurple4]Enter your choice >> [/]");
             string choice = Console.ReadLine();
 
-            // Process the user's choice using a switch statement
             switch (choice)
             {
                 case "1":
@@ -100,8 +97,6 @@ class Program
     /// </summary>
     static void DisplayAllCharacters()
     {
-
-        IFileHandler handler = new CSVFileHandler(filePath);
         List<Character> charList = handler.ReadAll();
 
         AnsiConsole.MarkupLine("\n\n[bold red3]===[/] [bold]All Characters[/] [bold red3]===[/]\n");
@@ -131,7 +126,6 @@ class Program
     //Prompt user for new character details and append the character to the file
     static void AddCharacter()
     {
-        IFileHandler handler = new CSVFileHandler(filePath);
 
         AnsiConsole.MarkupLine("\n[bold red3]===[/] [bold]Add New Character[/] [bold red3]===[/]\n");
 
@@ -173,28 +167,14 @@ class Program
             HP = Convert.ToInt32(hp),
             Equipment = equipment.Split("|").ToArray()
         });
-
-        //Short test of full rewrite
-        //CharacterReader reader = new CharacterReader(filePath);
-        //List<Character> charList = reader.ReadCharacters();
-
-        //charList.Add(new Character(name, className, int.Parse(level), int.Parse(hp), equipment.Split("|")));
-        //writer.WriteAllLines(charList);
-
-        //Console.WriteLine($"\nYour new character {name} has been created!");
     }
 
-    // Finds a character by name and increases their level by 1.
-    // TODO: Fix this to work with quotations?
     static void LevelUpCharacter()
     {
         AnsiConsole.MarkupLine("\n[bold red3]===[/] [bold]Level Up Character[/] [bold red3]===[/]\n");
 
-        IFileHandler handler = new CSVFileHandler(filePath);
         List<Character> characters = handler.ReadAll();
 
-        //Prompt for character name to level up
-        //TODO: Could potentially output all Characters for easier choice when leveling?
         Console.Write("Enter character name to level up >> ");
         string nameToFind = Console.ReadLine();
 
@@ -224,8 +204,6 @@ class Program
 
     static void FindCharacter()
     {
-        IFileHandler handler = new CSVFileHandler(filePath);
-
         AnsiConsole.MarkupLine("\n[bold red3]===[/] [bold]Find Character[/] [bold red3]===[/]\n");
         Console.Write("Enter character name to find >> ");
         string nameToFind = Console.ReadLine();

@@ -82,7 +82,6 @@ namespace Console_RPG.Services
 
         public Character FindByName(List<Character> characters, string name)
         {
-            //TODO: Is null acceptable here?
             return characters.FirstOrDefault(c => c.Name == name);
         }
 
