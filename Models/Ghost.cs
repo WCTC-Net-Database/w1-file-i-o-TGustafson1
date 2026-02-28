@@ -1,4 +1,6 @@
 ﻿using Console_RPG.Interfaces;
+using Spectre.Console;
+using Console_RPG.Services;
 
 
 namespace Console_RPG.Models
@@ -7,20 +9,32 @@ namespace Console_RPG.Models
     {
         public string Name { get; set; }
         public int HP { get; set; }
+        public Style Styling { get; set; }
+
+        public Ghost() {
+            Name = "";
+            HP = 12;
+            Styling = new Style(foreground: Color.White, decoration: Decoration.Bold);
+        }
 
         public void Attack(IEntity target)
         {
-            Console.WriteLine($"{Name} attacks {target.Name} with a chilling touch.");
+            ConsoleService.WriteName(Name, Styling);
+            Console.Write($" attacks ");
+            ConsoleService.WriteName(target.Name, target.Styling);
+            Console.WriteLine(" with a chilling touch.");
         }
 
         public void Move()
         {
-            Console.WriteLine($"{Name} floats silently.");
+            ConsoleService.WriteName(Name, Styling);
+            Console.WriteLine(" floats silently.");
         }
 
         public void Fly()
         {
-            Console.WriteLine($"{Name} flies with a shrieking howl!");
+            ConsoleService.WriteName(Name, Styling);
+            Console.WriteLine(" flies with a shrieking howl!");
         }
     }
 }

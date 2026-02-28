@@ -6,6 +6,10 @@ namespace Console_RPG.Interfaces
     {   
         string Name { get; set; }
         int HP { get; set; }
+        
+        //experimenting with Spectre Console styling
+        Style Styling { get; set; }
+
         void Attack(IEntity target);
         void Move();
     }

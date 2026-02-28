@@ -1,6 +1,7 @@
 ﻿using Console_RPG.Interfaces;
 using Console_RPG.Models;
 using Spectre.Console;
+using Console_RPG.Services;
 
 namespace Console_RPG
 {
@@ -11,6 +12,7 @@ namespace Console_RPG
         public int Level { get; set; }
         public int HP { get; set; }
         public string[] Equipment { get; set; }
+        public Style Styling { get; set; }
 
 
         public Character() 
@@ -18,6 +20,7 @@ namespace Console_RPG
             Name = "";
             Profession = "";
             Equipment = Array.Empty<string>();
+            Styling = new Style(foreground: Color.DeepSkyBlue4_2, decoration: Decoration.Bold);
         }
 
         public Character(string name, string profession, int level, int hp, string[] equipment)
@@ -36,12 +39,17 @@ namespace Console_RPG
 
         public void Attack(IEntity target)
         {
-            Console.WriteLine($"{Name} attacks {target.Name} with a mighty strike!");
+            ConsoleService.WriteName(Name, Styling);
+            Console.Write($" attacks ");
+            ConsoleService.WriteName(target.Name, target.Styling);
+            Console.WriteLine(" with a mighty strike!");
+
         }
 
         public void Move()
         {
-            Console.WriteLine($"{Name} moves swiftly across the battlefield.");
+            ConsoleService.WriteName(Name, Styling);
+            Console.WriteLine(" moves swiftly across the battlefield.");
         }
     }
 }

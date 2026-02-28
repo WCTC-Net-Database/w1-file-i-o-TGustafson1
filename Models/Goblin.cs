@@ -1,5 +1,6 @@
-﻿using Spectre.Console;
-using Console_RPG.Interfaces;
+﻿using Console_RPG.Interfaces;
+using Console_RPG.Services;
+using Spectre.Console;
 
 namespace Console_RPG.Models
 {
@@ -7,14 +8,25 @@ namespace Console_RPG.Models
     {
         public string Name { get; set; }
         public int HP { get; set; }
+        public Style Styling { get; set; }
+
+        public Goblin() { 
+            Name = "Unnamed Goblin";
+            HP = 18;
+            Styling = new Style(foreground: Color.Chartreuse4, decoration: Decoration.Bold);
+        }
         public void Attack(IEntity target)
         {
-            Console.WriteLine($"{Name} attacks {target.Name} while laughing mischievously.");
+            ConsoleService.WriteName(Name, Styling);
+            Console.Write(" attacks ");
+            ConsoleService.WriteName(target.Name, target.Styling);
+            Console.WriteLine(" while laughing mischievously.");
         }
         
         public void Move()
         {
-            Console.WriteLine($"{Name} moves quickly and sneakily.");
+            ConsoleService.WriteName(Name, Styling);
+            Console.WriteLine(" moves quickly and sneakily.");
         }
     }
 }

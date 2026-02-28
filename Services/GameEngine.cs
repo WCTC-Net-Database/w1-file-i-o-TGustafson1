@@ -22,16 +22,16 @@ namespace Console_RPG.Services
             _goblin.Name = "Goblin";
             _ghost.Name = "Ghost";
 
-            Console.WriteLine("=== Processing Character ===");
+            ConsoleService.WriteHeadline("Processing Character");
             ProcessEntity(_character);
 
-            Console.WriteLine("\n=== Processing Goblin ===");
+            ConsoleService.WriteHeadline("Processing Goblin");
             ProcessEntity(_goblin);
 
-            Console.WriteLine("\n=== Processing Ghost ===");
+            ConsoleService.WriteHeadline("Processing Ghost");
             ProcessEntity(_ghost);
 
-            Console.WriteLine("\n=== Combat ===");
+            ConsoleService.WriteHeadline("Combat");
             _character.Attack(_goblin);
             _goblin.Attack(_character);
             _ghost.Attack(_character);
