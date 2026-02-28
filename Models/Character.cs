@@ -1,6 +1,10 @@
-﻿namespace Console_RPG
+﻿using Console_RPG.Interfaces;
+using Console_RPG.Models;
+using Spectre.Console;
+
+namespace Console_RPG
 {
-    public class Character
+    public class Character : IEntity, ICharacter
     {
         public string Name { get; set; }
         public string Profession { get; set; }
@@ -28,6 +32,16 @@
         public override string ToString()
         {
             return $"Name: {Name} - Profession: {Profession} - Level: {Level} - HP: {HP} - Equipment: [{string.Join(", ", Equipment)}]";
+        }
+
+        public void Attack(IEntity target)
+        {
+            Console.WriteLine($"{Name} attacks {target.Name} with a mighty strike!");
+        }
+
+        public void Move()
+        {
+            Console.WriteLine($"{Name} moves swiftly across the battlefield.");
         }
     }
 }
