@@ -226,8 +226,9 @@ namespace Console_RPG.Services
             var character = new Character();
             var goblin = new Goblin();
             var ghost = new Ghost();
+            var zombie = new Zombie();
 
-            var gameEngine = new GameEngine(character, goblin, ghost);
+            var gameEngine = new GameEngine(character, goblin, ghost, zombie);
             gameEngine?.Run();
         }
 

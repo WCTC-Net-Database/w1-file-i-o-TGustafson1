@@ -4,11 +4,11 @@ using Spectre.Console;
 
 namespace Console_RPG.Models
 {
-    public class Goblin : IEntity, ISneakable
+    public class Goblin : IEntity, ISneakable, IDodgeable
     {
         public string Name { get; set; }
         public int HP { get; set; }
-        public Style Styling { get; } = new Style(foreground: Color.Chartreuse4, decoration: Decoration.Bold);
+        public Style Styling { get; } = new Style(foreground: Color.Green, decoration: Decoration.Bold);
 
         public Goblin() { 
             Name = "Generic Goblin";
@@ -32,6 +32,14 @@ namespace Console_RPG.Models
         {
             ConsoleService.WriteName(Name, Styling);
             Console.WriteLine(" sneaks around, avoiding detection.");
+
+        }
+
+        public void Dodge()
+        {
+            Console.Write("\tbut ");
+            ConsoleService.WriteName(Name, Styling);
+            Console.WriteLine(" dodges swiftly to the side!");
 
         }
     }
