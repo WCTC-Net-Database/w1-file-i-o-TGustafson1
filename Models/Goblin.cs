@@ -8,12 +8,11 @@ namespace Console_RPG.Models
     {
         public string Name { get; set; }
         public int HP { get; set; }
-        public Style Styling { get; set; }
+        public Style Styling { get; } = new Style(foreground: Color.Chartreuse4, decoration: Decoration.Bold);
 
         public Goblin() { 
-            Name = "Unnamed Goblin";
+            Name = "Generic Goblin";
             HP = 18;
-            Styling = new Style(foreground: Color.Chartreuse4, decoration: Decoration.Bold);
         }
         public void Attack(IEntity target)
         {

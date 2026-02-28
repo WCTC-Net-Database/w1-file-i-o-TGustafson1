@@ -1,4 +1,5 @@
-﻿using Console_RPG.Interfaces;
+﻿using Console_RPG.Commands;
+using Console_RPG.Interfaces;
 using Console_RPG.Models;
 
 namespace Console_RPG.Services
@@ -8,6 +9,9 @@ namespace Console_RPG.Services
         private readonly IEntity _character;
         private readonly IEntity _goblin;
         private readonly IEntity _ghost;
+
+        private List<ICommand> commands = new List<ICommand>();
+
 
         public GameEngine(IEntity character, IEntity goblin, IEntity ghost)
         {
@@ -22,6 +26,7 @@ namespace Console_RPG.Services
             _goblin.Name = "Goblin";
             _ghost.Name = "Ghost";
 
+            //TODO: Mock timer/processing time
             ConsoleService.WriteHeadline("Processing Character");
             ProcessEntity(_character);
 
@@ -31,23 +36,32 @@ namespace Console_RPG.Services
             ConsoleService.WriteHeadline("Processing Ghost");
             ProcessEntity(_ghost);
 
+            ConsoleService.WriteHeadline("Movement");
+            foreach (var c in commands) {
+                c.Execute();
+            }
+
+            commands.Clear();
+
             ConsoleService.WriteHeadline("Combat");
-            _character.Attack(_goblin);
-            _goblin.Attack(_character);
-            _ghost.Attack(_character);
+            commands.Add(new AttackCommand(_goblin, _character));
+            commands.Add(new AttackCommand(_ghost, _character));
+            commands.Add(new AttackCommand(_character, _ghost));
+
+            foreach (var c in commands) {
+                c.Execute();
+            }
         }
 
         public void ProcessEntity(IEntity entity)
         {
-            entity.Move();
-
             if (entity is IFlyable flyingEntity)
             {
-                flyingEntity.Fly();
+                commands.Add(new FlyCommand(flyingEntity));
             }
             else
             {
-                Console.WriteLine($"  {entity.Name} cannot fly.");
+                commands.Add(new MoveCommand(entity));
             }
         }
     }

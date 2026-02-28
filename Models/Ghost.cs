@@ -9,12 +9,11 @@ namespace Console_RPG.Models
     {
         public string Name { get; set; }
         public int HP { get; set; }
-        public Style Styling { get; set; }
+        public Style Styling { get; } = new Style(foreground: Color.White, decoration: Decoration.Bold);
 
         public Ghost() {
-            Name = "";
+            Name = "Generic Ghost";
             HP = 12;
-            Styling = new Style(foreground: Color.White, decoration: Decoration.Bold);
         }
 
         public void Attack(IEntity target)

@@ -1,4 +1,4 @@
-﻿namespace Console_RPG.Models
+﻿namespace Console_RPG.Interfaces
 {
     public interface ICharacter
     {

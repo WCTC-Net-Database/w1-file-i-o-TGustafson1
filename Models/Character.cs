@@ -1,5 +1,4 @@
 ﻿using Console_RPG.Interfaces;
-using Console_RPG.Models;
 using Spectre.Console;
 using Console_RPG.Services;
 
@@ -12,15 +11,15 @@ namespace Console_RPG
         public int Level { get; set; }
         public int HP { get; set; }
         public string[] Equipment { get; set; }
-        public Style Styling { get; set; }
+
+        public Style Styling { get; } = new Style(foreground: Color.DeepSkyBlue4_2, decoration: Decoration.Bold);
 
 
         public Character() 
         {
-            Name = "";
-            Profession = "";
+            Name = "Unnamed Character";
+            Profession = "Classless";
             Equipment = Array.Empty<string>();
-            Styling = new Style(foreground: Color.DeepSkyBlue4_2, decoration: Decoration.Bold);
         }
 
         public Character(string name, string profession, int level, int hp, string[] equipment)
