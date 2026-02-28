@@ -59,6 +59,10 @@ namespace Console_RPG.Services
             {
                 commands.Add(new FlyCommand(flyingEntity));
             }
+            else if (entity is ISneakable sneakingEntity)
+            {
+                commands.Add(new SneakCommand(sneakingEntity));
+            }
             else
             {
                 commands.Add(new MoveCommand(entity));

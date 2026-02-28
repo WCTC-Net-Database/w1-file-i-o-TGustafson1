@@ -4,7 +4,7 @@ using Spectre.Console;
 
 namespace Console_RPG.Models
 {
-    public class Goblin : IEntity
+    public class Goblin : IEntity, ISneakable
     {
         public string Name { get; set; }
         public int HP { get; set; }
@@ -21,11 +21,18 @@ namespace Console_RPG.Models
             ConsoleService.WriteName(target.Name, target.Styling);
             Console.WriteLine(" while laughing mischievously.");
         }
-        
+
         public void Move()
         {
             ConsoleService.WriteName(Name, Styling);
-            Console.WriteLine(" moves quickly and sneakily.");
+            Console.WriteLine(" moves quickly.");
+        }
+
+        public void Sneak()
+        {
+            ConsoleService.WriteName(Name, Styling);
+            Console.WriteLine(" sneaks around, avoiding detection.");
+
         }
     }
 }
