@@ -15,32 +15,32 @@ namespace Console_RPG.Services
             _filePath = filePath;
         }
 
-        public List<Character> ReadAll()
+        public List<CharacterBase> ReadAll()
         {
             string json = File.ReadAllText(_filePath);
-            return JsonSerializer.Deserialize<List<Character>>(json, _options) ?? new List<Character>();
+            return JsonSerializer.Deserialize<List<CharacterBase>>(json, _options) ?? new List<CharacterBase>();
         }
 
-        public void AppendCharacter(Character character)
+        public void AppendCharacter(CharacterBase character)
         {
             var characters = ReadAll();
             characters.Add(character);
             WriteAll(characters);
         }
 
-        public void WriteAll(List<Character> characters)
+        public void WriteAll(List<CharacterBase> characters)
         {
             string json = JsonSerializer.Serialize(characters, _options);
             File.WriteAllText(_filePath, json);
         }
 
-        public Character? FindByName(List<Character> characters, string name)
+        public CharacterBase? FindByName(List<CharacterBase> characters, string name)
         {
             return characters.FirstOrDefault(c =>
                 c.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
         }
 
-        public List<Character> FindByProfession(List<Character> characters, string profession)
+        public List<CharacterBase> FindByProfession(List<CharacterBase> characters, string profession)
         {
             return characters.Where(c =>
                 c.Profession.Equals(profession, StringComparison.OrdinalIgnoreCase)).ToList();

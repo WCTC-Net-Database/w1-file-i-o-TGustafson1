@@ -13,7 +13,7 @@ namespace Console_RPG.Services
         }
 
         // Writing methods for CSV file handling
-        public void WriteAll(List<Character> characters)
+        public void WriteAll(List<CharacterBase> characters)
         {
             List<string> lines = ["Name,Profession,Level,HP,Equipment\r\n"];
 
@@ -24,13 +24,13 @@ namespace Console_RPG.Services
 
         }
 
-        public void AppendCharacter(Character character)
+        public void AppendCharacter(CharacterBase character)
         {
             var characterText = FormatCSVCharacter(character);
             File.AppendAllText(_filePath, characterText + "\n");
         }
 
-        private string FormatCSVCharacter(Character character)
+        private string FormatCSVCharacter(CharacterBase character)
         {
 
             string quotedName;
@@ -51,9 +51,9 @@ namespace Console_RPG.Services
         }
 
         // Read methods for CSV file handling
-        public List<Character> ReadAll()
+        public List<CharacterBase> ReadAll()
         {
-            List<Character> characters = new List<Character>();
+            List<CharacterBase> characters = new List<CharacterBase>();
 
             using (var reader = new StreamReader(_filePath))
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
@@ -64,7 +64,7 @@ namespace Console_RPG.Services
                 while (csv.Read())
                 {
 
-                    Character lineCharacter = new Character
+                    CharacterBase lineCharacter = new CharacterBase
                     {
                         Name = csv.GetField<string>("Name"),
                         Profession = csv.GetField<string>("Profession"),
@@ -80,12 +80,12 @@ namespace Console_RPG.Services
             return characters;
         }
 
-        public Character FindByName(List<Character> characters, string name)
+        public CharacterBase FindByName(List<CharacterBase> characters, string name)
         {
             return characters.FirstOrDefault(c => c.Name == name);
         }
 
-        public List<Character> FindByProfession(List<Character> characters, string profession)
+        public List<CharacterBase> FindByProfession(List<CharacterBase> characters, string profession)
         {
             return characters.Where(c => c.Profession == profession).ToList();
         }

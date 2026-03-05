@@ -1,20 +1,24 @@
 ﻿using Spectre.Console;
 using System.Collections;
 using Console_RPG.Models;
+using Console_RPG.Models.Classes;
 
 namespace Console_RPG.Services
 {
     public class MainMenu
     {
         // The path to our data file - we'll read and write character data here
-        static string filePath = "Files/input.json";
+        static string _filePath = "Files/input.json";
         // File handler which can swap between Json and CSV
-        static IFileHandler handler = new JsonFileHandler(filePath);
+        static IFileHandler _fileHandler = new JsonFileHandler(_filePath);
+
+        // Console Handler for printing colored text and tables to the console
+
 
         public void RunMenu()
         {
             // Welcome message
-            AnsiConsole.MarkupLine($"\n\n[bold red3]===[/] [bold]Console RPG Character Manager[/] [bold red3]===[/]\n");
+            ConsoleService.WriteHeadline($"Console RPG Character Manager");
 
             // Main program loop - keeps running until user chooses to exit
             bool running = true;
@@ -88,7 +92,7 @@ namespace Console_RPG.Services
         /// </summary>
         static void DisplayAllCharacters()
         {
-            List<Character> charList = handler.ReadAll();
+            List<CharacterBase> charList = _fileHandler.ReadAll();
 
             AnsiConsole.MarkupLine("\n\n[bold red3]===[/] [bold]All Characters[/] [bold red3]===[/]\n");
 
@@ -99,7 +103,7 @@ namespace Console_RPG.Services
                     .AddColumn("[DeepSkyBlue4_2]HP[/]")
                     .AddColumn("[DeepSkyBlue4_2]Equipment list[/]");
 
-            foreach (Character c in charList)
+            foreach (CharacterBase c in charList)
             {
                 characterTable.AddRow(
                     $"[LightCyan3]{c.Name}[/]",
@@ -118,7 +122,7 @@ namespace Console_RPG.Services
         static void AddCharacter()
         {
 
-            AnsiConsole.MarkupLine("\n[bold red3]===[/] [bold]Add New Character[/] [bold red3]===[/]\n");
+            ConsoleService.WriteHeadline("Add New Character");
 
             //Prompting and reading new character details
             Console.Write("Enter character name >> ");
@@ -150,7 +154,7 @@ namespace Console_RPG.Services
 
             var equipment = string.Join("|", equipmentList.ToArray());
 
-            handler.AppendCharacter(new Character
+            _fileHandler.AppendCharacter(new CharacterBase
             {
                 Name = name,
                 Profession = className,
@@ -164,7 +168,7 @@ namespace Console_RPG.Services
         {
             AnsiConsole.MarkupLine("\n[bold red3]===[/] [bold]Level Up Character[/] [bold red3]===[/]\n");
 
-            List<Character> characters = handler.ReadAll();
+            List<CharacterBase> characters = _fileHandler.ReadAll();
 
             Console.Write("Enter character name to level up >> ");
             string nameToFind = Console.ReadLine();
@@ -173,7 +177,7 @@ namespace Console_RPG.Services
 
             try
             {
-                foreach (Character character in characters)
+                foreach (CharacterBase character in characters)
                 {
                     if (character.Name == nameToFind)
                     {
@@ -184,7 +188,7 @@ namespace Console_RPG.Services
                     }
                 }
 
-                handler.WriteAll(characters);
+                _fileHandler.WriteAll(characters);
             }
             catch
             {
@@ -199,7 +203,7 @@ namespace Console_RPG.Services
             Console.Write("Enter character name to find >> ");
             string nameToFind = Console.ReadLine();
 
-            Character c = handler.FindByName(handler.ReadAll(), nameToFind);
+            CharacterBase c = _fileHandler.FindByName(_fileHandler.ReadAll(), nameToFind);
 
             var characterTable = new Table()
                     .AddColumn("[DeepSkyBlue4_2]Name[/]")
@@ -221,9 +225,10 @@ namespace Console_RPG.Services
 
         static void RunGame()
         {
-            AnsiConsole.MarkupLine("\n[bold red3]===[/] [bold]Run Game[/] [bold red3]===[/]\n");
+            ConsoleService.WriteHeadline("Running Game");
 
-            var character = new Character();
+            //TODO: Use Factory Pattern to create character based on selected character/class from file instead of hardcoding. 
+            var character = new Fighter();
             var goblin = new Goblin();
             var ghost = new Ghost();
             var zombie = new Zombie();
@@ -235,19 +240,19 @@ namespace Console_RPG.Services
         static void SwitchFileFormat()
         {
             AnsiConsole.MarkupLine("\n[bold red3]===[/] [bold]Switch File Format[/] [bold red3]===[/]\n");
-            AnsiConsole.MarkupLine("[DeepSkyBlue4_2]Current file format: [/]" + (handler is JsonFileHandler ? "[LightCyan3]JSON[/]" : "[LightCyan3]CSV[/]"));
+            AnsiConsole.MarkupLine("[DeepSkyBlue4_2]Current file format: [/]" + (_fileHandler is JsonFileHandler ? "[LightCyan3]JSON[/]" : "[LightCyan3]CSV[/]"));
             AnsiConsole.MarkupLine("[DeepSkyBlue4_2]Enter new file format (json/csv) >> [/]");
             string newFormat = Console.ReadLine();
             if (newFormat.ToLower() == "json")
             {
-                filePath = "Files/input.json";
-                handler = new JsonFileHandler(filePath);
+                _filePath = "Files/input.json";
+                _fileHandler = new JsonFileHandler(_filePath);
                 AnsiConsole.MarkupLine("\n[DeepSkyBlue4_2]Switched to JSON file format![/]");
             }
             else if (newFormat.ToLower() == "csv")
             {
-                filePath = "Files/input.csv";
-                handler = new CSVFileHandler(filePath);
+                _filePath = "Files/input.csv";
+                _fileHandler = new CSVFileHandler(_filePath);
                 AnsiConsole.MarkupLine("\n[DeepSkyBlue4_2]Switched to CSV file format![/]");
             }
             else

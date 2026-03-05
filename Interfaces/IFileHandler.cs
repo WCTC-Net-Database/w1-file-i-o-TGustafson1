@@ -2,9 +2,9 @@
 
 internal interface IFileHandler
 {
-    List<Character> ReadAll();
-    void WriteAll(List<Character> characters);
-    void AppendCharacter(Character character);
-    Character? FindByName(List<Character> characters, string name);
-    List<Character> FindByProfession(List<Character> characters, string profession);
+    List<CharacterBase> ReadAll();
+    void WriteAll(List<CharacterBase> characters);
+    void AppendCharacter(CharacterBase character);
+    CharacterBase? FindByName(List<CharacterBase> characters, string name);
+    List<CharacterBase> FindByProfession(List<CharacterBase> characters, string profession);
 }

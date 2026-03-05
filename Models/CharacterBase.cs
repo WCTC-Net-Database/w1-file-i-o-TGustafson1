@@ -4,7 +4,7 @@ using Console_RPG.Services;
 
 namespace Console_RPG
 {
-    public class Character : IEntity, ICharacter
+    public abstract class CharacterBase : IEntity, ICharacter
     {
         public string Name { get; set; }
         public string Profession { get; set; }
@@ -15,14 +15,14 @@ namespace Console_RPG
         public Style Styling { get; } = new Style(foreground: Color.DeepSkyBlue4_2, decoration: Decoration.Bold);
 
 
-        public Character() 
+        public CharacterBase() 
         {
             Name = "Unnamed Character";
             Profession = "Classless";
             Equipment = Array.Empty<string>();
         }
 
-        public Character(string name, string profession, int level, int hp, string[] equipment)
+        public CharacterBase(string name, string profession, int level, int hp, string[] equipment)
         {
             Name = name;
             Profession = profession;
@@ -36,7 +36,7 @@ namespace Console_RPG
             return $"Name: {Name} - Profession: {Profession} - Level: {Level} - HP: {HP} - Equipment: [{string.Join(", ", Equipment)}]";
         }
 
-        public void Attack(IEntity target)
+        public virtual void Attack(IEntity target)
         {
             ConsoleService.WriteName(Name, Styling);
             Console.Write($" attacks ");
@@ -44,6 +44,8 @@ namespace Console_RPG
             Console.WriteLine(" with a mighty strike!");
 
         }
+
+        public abstract void PerformSpecialAction();
 
         public void Move()
         {
