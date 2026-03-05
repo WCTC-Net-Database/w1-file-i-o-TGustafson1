@@ -12,10 +12,10 @@ namespace Console_RPG.Services
         {
             return profession.ToLower() switch
             {
-                //TODO: Implement Cleric, Wizard classes.
                 "fighter" => new Fighter(),
                 "cleric" => new Cleric(),
-                "wizard" => new Wizard()
+                "wizard" => new Wizard(),
+                "rogue" => new Rogue()
 
             };
         }
