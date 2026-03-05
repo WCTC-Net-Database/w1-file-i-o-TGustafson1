@@ -154,14 +154,16 @@ namespace Console_RPG.Services
 
             var equipment = string.Join("|", equipmentList.ToArray());
 
-            _fileHandler.AppendCharacter(new CharacterBase
-            {
-                Name = name,
-                Profession = className,
-                Level = Convert.ToInt32(level),
-                HP = Convert.ToInt32(hp),
-                Equipment = equipment.Split("|").ToArray()
-            });
+            var factory = new CharacterFactory();
+            var character = factory.CreateCharacter(
+                name,
+                className,
+                Convert.ToInt32(level),
+                Convert.ToInt32(hp),
+                equipment.Split("|").ToArray()
+            );
+
+            _fileHandler.AppendCharacter(character);
         }
 
         static void LevelUpCharacter()

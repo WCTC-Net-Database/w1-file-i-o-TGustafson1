@@ -54,6 +54,7 @@ namespace Console_RPG.Services
         public List<CharacterBase> ReadAll()
         {
             List<CharacterBase> characters = new List<CharacterBase>();
+            var factory = new CharacterFactory();
 
             using (var reader = new StreamReader(_filePath))
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
@@ -63,17 +64,15 @@ namespace Console_RPG.Services
                 csv.ReadHeader();
                 while (csv.Read())
                 {
+                    var character = factory.CreateCharacter(
+                        csv.GetField<string>("Name"),
+                        csv.GetField<string>("Profession"),
+                        csv.GetField<int>("Level"),
+                        csv.GetField<int>("HP"),
+                        csv.GetField<string>("Equipment").Split('|')
+                    );
 
-                    CharacterBase lineCharacter = new CharacterBase
-                    {
-                        Name = csv.GetField<string>("Name"),
-                        Profession = csv.GetField<string>("Profession"),
-                        Level = csv.GetField<int>("Level"),
-                        HP = csv.GetField<int>("HP"),
-                        Equipment = csv.GetField<string>("Equipment").Split('|')
-                    };
-
-                    characters.Add(lineCharacter);
+                    characters.Add(character);
                 }
             }
 

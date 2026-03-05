@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization;
+using Console_RPG.Models.Classes;
 
 namespace Console_RPG.Services
 {
     internal class JsonFileHandler : IFileHandler
     {
         private readonly string _filePath;
-        private readonly JsonSerializerOptions _options = new() { WriteIndented = true, PropertyNameCaseInsensitive = true }; // made case insensitive to fix bug
+        private readonly JsonSerializerOptions _options = new() { WriteIndented = true, PropertyNameCaseInsensitive = true };
 
         public JsonFileHandler(string filePath)
         {
@@ -18,6 +20,8 @@ namespace Console_RPG.Services
         public List<CharacterBase> ReadAll()
         {
             string json = File.ReadAllText(_filePath);
+            
+            //TODO: Needs a sort of switch statement to determine which type of character to deserialize into
             return JsonSerializer.Deserialize<List<CharacterBase>>(json, _options) ?? new List<CharacterBase>();
         }
 
@@ -46,4 +50,5 @@ namespace Console_RPG.Services
                 c.Profession.Equals(profession, StringComparison.OrdinalIgnoreCase)).ToList();
         }
     }
+
 }
