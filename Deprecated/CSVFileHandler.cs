@@ -1,7 +1,8 @@
-﻿using CsvHelper;
+﻿using Console_RPG.Data;
+using CsvHelper;
 using System.Globalization;
 
-namespace Console_RPG.Services
+namespace Console_RPG.Deprecated
 {
     internal class CSVFileHandler : IFileHandler
     {
@@ -39,12 +40,12 @@ namespace Console_RPG.Services
             if (character.Name.Contains(','))
             {
                 quotedName = $"\"{character.Name}\"";
-                newCharacter = $"{quotedName},{character.Profession},{character.Level},{character.HP},{string.Join("|", character.Equipment.ToArray())}";
+                newCharacter = $"{quotedName},{character.Type},{character.Level},{character.HP},{string.Join("|", character.Equipment.ToArray())}";
 
             }
             else
             {
-                newCharacter = $"{character.Name},{character.Profession},{character.Level},{character.HP},{string.Join("|", character.Equipment.ToArray())}";
+                newCharacter = $"{character.Name},{character.Type},{character.Level},{character.HP},{string.Join("|", character.Equipment.ToArray())}";
             }
 
             return newCharacter;
@@ -66,7 +67,7 @@ namespace Console_RPG.Services
                 {
                     var character = factory.CreateCharacter(
                         csv.GetField<string>("Name"),
-                        csv.GetField<string>("Profession"),
+                        csv.GetField<string>("Type"),
                         csv.GetField<int>("Level"),
                         csv.GetField<int>("HP"),
                         csv.GetField<string>("Equipment").Split('|')
@@ -84,9 +85,9 @@ namespace Console_RPG.Services
             return characters.FirstOrDefault(c => c.Name == name);
         }
 
-        public List<CharacterBase> FindByProfession(List<CharacterBase> characters, string profession)
+        public List<CharacterBase> FindByProfession(List<CharacterBase> characters, string type)
         {
-            return characters.Where(c => c.Profession == profession).ToList();
+            return characters.Where(c => c.Type == type).ToList();
         }
     }
 }

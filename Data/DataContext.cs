@@ -13,7 +13,6 @@ namespace Console_RPG.Data
         {
             options = new JsonSerializerOptions
             {
-                Converters = { new CharacterBaseConverter() },
                 WriteIndented = true,
                 PropertyNameCaseInsensitive = true,
                 TypeInfoResolver = new DefaultJsonTypeInfoResolver()

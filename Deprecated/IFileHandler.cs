@@ -1,4 +1,4 @@
-﻿namespace Console_RPG;
+﻿namespace Console_RPG.Deprecated;
 
 internal interface IFileHandler
 {

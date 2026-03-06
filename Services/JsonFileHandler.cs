@@ -4,6 +4,7 @@ using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Text.Json.Serialization.Metadata;
+using Console_RPG.Deprecated;
 using Console_RPG.Models.Classes;
 
 namespace Console_RPG.Services
@@ -49,10 +50,10 @@ namespace Console_RPG.Services
                 c.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
         }
 
-        public List<CharacterBase> FindByProfession(List<CharacterBase> characters, string profession)
+        public List<CharacterBase> FindByType(List<CharacterBase> characters, string type)
         {
             return characters.Where(c =>
-                c.Profession.Equals(profession, StringComparison.OrdinalIgnoreCase)).ToList();
+                c.Type.Equals(type, StringComparison.OrdinalIgnoreCase)).ToList();
         }
     }
 
