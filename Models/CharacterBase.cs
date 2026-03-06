@@ -1,9 +1,19 @@
 ﻿using Console_RPG.Interfaces;
 using Spectre.Console;
 using Console_RPG.Services;
+using System.Text.Json.Serialization;
+using Console_RPG.Models.Classes;
 
 namespace Console_RPG
 {
+    // Adding Json Discriminator property to enable polymorphic serialization and deserialization of CharacterBase
+    [JsonPolymorphic(TypeDiscriminatorPropertyName = "profession")]
+    [JsonDerivedType(typeof(Fighter), "Fighter")]
+    [JsonDerivedType(typeof(Cleric), "Cleric")]
+    [JsonDerivedType(typeof(Wizard), "Wizard")]
+    [JsonDerivedType(typeof(Rogue), "Rogue")]
+    [JsonDerivedType(typeof(CustomCharacter), "Knight")]
+
     public abstract class CharacterBase : IEntity, ICharacter
     {
         public string Name { get; set; }

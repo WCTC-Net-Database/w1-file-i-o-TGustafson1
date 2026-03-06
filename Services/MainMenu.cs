@@ -7,8 +7,7 @@ namespace Console_RPG.Services
 {
     public class MainMenu
     {
-        // The path to our data file - we'll read and write character data here
-        static string _filePath = "Files/input.json";
+
         // File handler which can swap between Json and CSV
         static IFileHandler _fileHandler = new JsonFileHandler(_filePath);
 

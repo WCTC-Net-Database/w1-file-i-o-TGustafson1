@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Text.Json.Serialization.Metadata;
 using Console_RPG.Models.Classes;
 
 namespace Console_RPG.Services
@@ -10,7 +11,12 @@ namespace Console_RPG.Services
     internal class JsonFileHandler : IFileHandler
     {
         private readonly string _filePath;
-        private readonly JsonSerializerOptions _options = new() { WriteIndented = true, PropertyNameCaseInsensitive = true };
+        private readonly JsonSerializerOptions _options = new() 
+        { 
+            WriteIndented = true, 
+            PropertyNameCaseInsensitive = true,
+            TypeInfoResolver = new DefaultJsonTypeInfoResolver()
+        };
 
         public JsonFileHandler(string filePath)
         {
@@ -21,7 +27,6 @@ namespace Console_RPG.Services
         {
             string json = File.ReadAllText(_filePath);
             
-            //TODO: Needs a sort of switch statement to determine which type of character to deserialize into
             return JsonSerializer.Deserialize<List<CharacterBase>>(json, _options) ?? new List<CharacterBase>();
         }
 

@@ -1,37 +1,112 @@
 ﻿[
   {
-    "name": "John, Brave",
-    "profession": "Fighter",
-    "level": 1,
-    "hp": 10,
-    "equipment": [ "sword", "shield", "potion" ]
+    "$type": "Console_RPG.Models.Classes.Fighter",
+    "Name": "John, Brave",
+    "Type": "Fighter",
+    "Level": 1,
+    "HP": 10,
+    "Equipment": "sword|shield|potion",
+    "Gold": 50
   },
   {
-    "name": "Jane",
-    "profession": "Wizard",
-    "level": 2,
-    "hp": 6,
-    "equipment": [ "staff", "robe", "book" ]
+    "$type": "Console_RPG.Models.Classes.CustomCharacter",
+    "Name": "Jane",
+    "Type": "Wizard",
+    "Level": 2,
+    "HP": 6,
+    "Equipment": "staff|robe|book"
   },
   {
-    "name": "Bob, Sneaky",
-    "profession": "Rogue",
-    "level": 3,
-    "hp": 8,
-    "equipment": [ "dagger", "lockpick", "cloak" ]
+    "$type": "Console_RPG.Models.Classes.CustomCharacter",
+    "Name": "Bob, Sneaky",
+    "Type": "Rogue",
+    "Level": 3,
+    "HP": 8,
+    "Equipment": "dagger|lockpick|cloak"
   },
   {
-    "name": "Alice",
-    "profession": "Cleric",
-    "level": 4,
-    "hp": 12,
-    "equipment": [ "mace", "armor", "potion" ]
+    "$type": "Console_RPG.Models.Classes.CustomCharacter",
+    "Name": "Alice",
+    "Type": "Cleric",
+    "Level": 4,
+    "HP": 12,
+    "Equipment": "mace|armor|potion"
   },
   {
-    "name": "Reginald III, Sir",
-    "profession": "Knight",
-    "level": 5,
-    "hp": 20,
-    "equipment": [ "sword", "armor", "horse" ]
+    "$type": "Console_RPG.Models.Classes.CustomCharacter",
+    "Name": "Reginald III, Sir",
+    "Type": "Knight",
+    "Level": 5,
+    "HP": 20,
+    "Equipment": "sword|armor|horse"
+  },
+  {
+    "$type": "Console_RPG.Models.Classes.Fighter",
+    "Name": "Brave Sir Robin",
+    "Type": "Fighter",
+    "Level": 1,
+    "HP": 10,
+    "Equipment": "sword|shield|potion",
+    "Gold": 50
+  },
+  {
+    "$type": "Console_RPG.Models.Goblin",
+    "Name": "Bob Goblin",
+    "Type": "Goblin",
+    "Level": 1,
+    "HP": 5,
+    "Treasure": "club"
+  },
+  {
+    "$type": "Console_RPG.Models.Goblin",
+    "Name": "Tom Goblin",
+    "Type": "Goblin",
+    "Level": 1,
+    "HP": 5,
+    "Treasure": null
+  },
+  {
+    "$type": "Console_RPG.Models.Goblin",
+    "Name": "Boss Goblin",
+    "Type": "Goblin",
+    "Level": 1,
+    "HP": 10,
+    "Treasure": "leather armor"
+  },
+  {
+    "$type": "Console_RPG.Models.Ghost",
+    "Name": "Silent Ghost",
+    "Type": "Ghost",
+    "Level": 2,
+    "HP": 8,
+    "Treasure": "cloak"
+  },
+  {
+    "$type": "Console_RPG.Models.Ghost",
+    "Name": "Scary Ghost",
+    "Type": "Ghost",
+    "Level": 2,
+    "HP": 8,
+    "Treasure": null
+  },
+  {
+    "$type": "Console_RPG.Models.Zombie",
+    "Name": "Shambling Zombie",
+    "HP": 15
+  },
+  {
+    "$type": "Console_RPG.Models.Zombie",
+    "Name": "Rotting Walker",
+    "HP": 12
+  },
+  {
+    "$type": "Console_RPG.Models.Zombie",
+    "Name": "Zombie Horde Leader",
+    "HP": 20
+  },
+  {
+    "$type": "Console_RPG.Models.Zombie",
+    "Name": "Fresh Zombie",
+    "HP": 18
   }
 ]
