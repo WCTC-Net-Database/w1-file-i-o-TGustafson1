@@ -50,7 +50,7 @@
     "Gold": 50
   },
   {
-    "$type": "Console_RPG.Models.Goblin",
+    "$type": "Console_RPG.Models.Monsters.Goblin",
     "Name": "Bob Goblin",
     "Type": "Goblin",
     "Level": 1,
@@ -58,7 +58,7 @@
     "Treasure": "club"
   },
   {
-    "$type": "Console_RPG.Models.Goblin",
+    "$type": "Console_RPG.Models.Monsters.Goblin",
     "Name": "Tom Goblin",
     "Type": "Goblin",
     "Level": 1,
@@ -66,7 +66,7 @@
     "Treasure": null
   },
   {
-    "$type": "Console_RPG.Models.Goblin",
+    "$type": "Console_RPG.Models.Monsters.Goblin",
     "Name": "Boss Goblin",
     "Type": "Goblin",
     "Level": 1,
@@ -74,7 +74,7 @@
     "Treasure": "leather armor"
   },
   {
-    "$type": "Console_RPG.Models.Ghost",
+    "$type": "Console_RPG.Models.Monsters.Ghost",
     "Name": "Silent Ghost",
     "Type": "Ghost",
     "Level": 2,
@@ -82,7 +82,7 @@
     "Treasure": "cloak"
   },
   {
-    "$type": "Console_RPG.Models.Ghost",
+    "$type": "Console_RPG.Models.Monsters.Ghost",
     "Name": "Scary Ghost",
     "Type": "Ghost",
     "Level": 2,
@@ -90,29 +90,29 @@
     "Treasure": null
   },
   {
-    "$type": "Console_RPG.Models.Zombie",
+    "$type": "Console_RPG.Models.Monsters.Zombie",
     "Name": "Shambling Zombie",
     "Type": "Zombie",
     "Level": 2,
     "HP": 15,  
-    "Treasure": null
+    "Treasure": "corroded spoon"
 
   },
   {
-    "$type": "Console_RPG.Models.Zombie",
+    "$type": "Console_RPG.Models.Monsters.Zombie",
     "Name": "Rotting Walker",
     "Type": "Zombie",
     "Level": 1,
     "HP": 12,    
-    "Treasure": null
+    "Treasure": "rotten flesh"
   },
   {
-    "$type": "Console_RPG.Models.Zombie",
+    "$type": "Console_RPG.Models.Monsters.Zombie",
     "Name": "Zombie Horde Leader",
     "Type": "Zombie",    
     "Level": 4,
     "HP": 20,
-    "Treasure": null
+    "Treasure": "rusted cleaver"
   },
 
 ]

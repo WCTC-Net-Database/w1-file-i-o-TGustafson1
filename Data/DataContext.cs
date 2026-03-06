@@ -1,5 +1,6 @@
 ﻿
 
+using Console_RPG.Models;
 using System.Text.Json;
 using System.Text.Json.Serialization.Metadata;
 
@@ -7,7 +8,10 @@ namespace Console_RPG.Data
 {
     public class DataContext :IContext
     {
+        public List<EntityBase> Entities { get; set; }
         public List<CharacterBase> Characters { get; set; }
+        public List<MonsterBase> Monsters { get; set; }
+
         private readonly JsonSerializerOptions options;
         public DataContext()
         {
@@ -25,7 +29,10 @@ namespace Console_RPG.Data
         private void LoadData()
         {
             var jsonData = File.ReadAllText("Files/input.json");
-            Characters = JsonSerializer.Deserialize<List<CharacterBase>>(jsonData, options) ?? new List<CharacterBase>();
+            Entities = JsonSerializer.Deserialize<List<EntityBase>>(jsonData, options) ?? new List<EntityBase>();
+
+            Characters = Entities.OfType<CharacterBase>().ToList();
+            Monsters = Entities.OfType<MonsterBase>().ToList();
         }
 
         public void AddCharacter(CharacterBase character)

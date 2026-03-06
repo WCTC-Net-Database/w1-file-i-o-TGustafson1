@@ -35,18 +35,18 @@ namespace Console_RPG.Services
 
             foreach (var entity in entities) 
             {
-                ConsoleService.WriteHeadline($"Processing {entity.Name}");
+                UIService.WriteHeadline($"Processing {entity.Name}");
                 ProcessMovement(entity);
             }
 
-            ConsoleService.WriteHeadline("Movement");
+            UIService.WriteHeadline("Movement");
             foreach (var c in commands) {
                 c.Execute();
             }
 
             commands.Clear();
 
-            ConsoleService.WriteHeadline("Combat");
+            UIService.WriteHeadline("Combat");
             ProcessCombat(_goblin, _character);
             ProcessCombat(_ghost, _character);
             ProcessCombat(_zombie, _character);
@@ -58,7 +58,7 @@ namespace Console_RPG.Services
 
             commands.Clear();
 
-            ConsoleService.WriteHeadline("End of Round");
+            UIService.WriteHeadline("End of Round");
 
             foreach (var entity in entities) 
             {

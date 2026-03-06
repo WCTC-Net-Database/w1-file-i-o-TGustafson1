@@ -1,8 +1,8 @@
 ﻿using Spectre.Console;
 using System.Collections;
-using Console_RPG.Models;
 using Console_RPG.Models.Classes;
 using Console_RPG.Data;
+using Console_RPG.Models.Monsters;
 
 namespace Console_RPG.Services
 {

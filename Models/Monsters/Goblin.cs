@@ -2,9 +2,9 @@
 using Console_RPG.Services;
 using Spectre.Console;
 
-namespace Console_RPG.Models
+namespace Console_RPG.Models.Monsters
 {
-    public class Goblin : IEntity, ISneakable, IDodgeable
+    public class Goblin : MonsterBase, ISneakable, IDodgeable
     {
         public string Name { get; set; }
         public int Level { get; set; }

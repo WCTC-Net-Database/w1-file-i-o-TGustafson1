@@ -3,9 +3,9 @@ using Spectre.Console;
 using Console_RPG.Services;
 
 
-namespace Console_RPG.Models
+namespace Console_RPG.Models.Monsters
 {
-    public class Ghost : IEntity, IFlyable
+    public class Ghost : MonsterBase, IFlyable
     {
         public string Name { get; set; }
         public int Level { get; set; }

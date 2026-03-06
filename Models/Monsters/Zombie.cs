@@ -5,9 +5,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Console_RPG.Models
+namespace Console_RPG.Models.Monsters
 {
-    public class Zombie : IEntity, IRevivable
+    public class Zombie : MonsterBase, IRevivable
     {
         public string Name { get; set; }
         public int Level { get; set; }
