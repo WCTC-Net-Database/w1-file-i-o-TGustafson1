@@ -3,7 +3,7 @@ using Spectre.Console;
 
 namespace Console_RPG.Services
 {
-    public class ConsoleService
+    public class UIService
     {
         // Spectre Colors: red3 - #AF0000, DeepSkyBlue4_2 - #005FAF, LightCyan3 - #AFD7D7, MediumPurple4 - #5F5F87
         public static void WriteName(string name, Style styling)

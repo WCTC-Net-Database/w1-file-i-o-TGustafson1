@@ -4,10 +4,9 @@ using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Text.Json.Serialization.Metadata;
-using Console_RPG.Deprecated;
 using Console_RPG.Models.Classes;
 
-namespace Console_RPG.Services
+namespace Console_RPG.Deprecated
 {
     internal class JsonFileHandler : IFileHandler
     {

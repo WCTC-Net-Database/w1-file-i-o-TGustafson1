@@ -8,10 +8,16 @@ namespace Console_RPG.Services
 {
     public class MainMenu
     {
+        private readonly IContext _context;
+
+        public MainMenu(IContext context)
+        {
+            _context = context;
+        }
         public void RunMenu()
         {
             // Welcome message
-            ConsoleService.WriteHeadline($"Console RPG Character Manager");
+            UIService.WriteHeadline($"Console RPG Character Manager");
 
             // Main program loop - keeps running until user chooses to exit
             bool running = true;
@@ -82,13 +88,15 @@ namespace Console_RPG.Services
         /// </summary>
         static void DisplayAllCharacters()
         {
-            List<CharacterBase> charList = _fileHandler.ReadAll();
+            //TODO: Fix this to actually load characters, will need to altar context and CharacterBase
+            List<CharacterBase> charList = new List<CharacterBase>();
 
-            AnsiConsole.MarkupLine("\n\n[bold red3]===[/] [bold]All Characters[/] [bold red3]===[/]\n");
+
+            UIService.WriteHeadline("All Characters");
 
             var characterTable = new Table()
                     .AddColumn("[DeepSkyBlue4_2]Name[/]")
-                    .AddColumn("[DeepSkyBlue4_2]Class[/]")
+                    .AddColumn("[DeepSkyBlue4_2]Type[/]")
                     .AddColumn("[DeepSkyBlue4_2]Level[/]")
                     .AddColumn("[DeepSkyBlue4_2]HP[/]")
                     .AddColumn("[DeepSkyBlue4_2]Equipment list[/]");
@@ -112,7 +120,7 @@ namespace Console_RPG.Services
         static void AddCharacter()
         {
 
-            ConsoleService.WriteHeadline("Add New Character");
+            UIService.WriteHeadline("Add New Character");
 
             //Prompting and reading new character details
             Console.Write("Enter character name >> ");
@@ -217,7 +225,7 @@ namespace Console_RPG.Services
 
         static void RunGame()
         {
-            ConsoleService.WriteHeadline("Running Game");
+            UIService.WriteHeadline("Running Game");
 
             //TODO: Use Factory Pattern to create character based on selected character/class from file instead of hardcoding. 
             var character = new Fighter();

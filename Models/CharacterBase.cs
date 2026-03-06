@@ -40,9 +40,9 @@ namespace Console_RPG
 
         public virtual void Attack(IEntity target)
         {
-            ConsoleService.WriteName(Name, Styling);
+            UIService.WriteName(Name, Styling);
             Console.Write($" attacks ");
-            ConsoleService.WriteName(target.Name, target.Styling);
+            UIService.WriteName(target.Name, target.Styling);
             Console.WriteLine(" with a mighty strike!");
 
         }
@@ -51,7 +51,7 @@ namespace Console_RPG
 
         public void Move()
         {
-            ConsoleService.WriteName(Name, Styling);
+            UIService.WriteName(Name, Styling);
             Console.WriteLine(" moves swiftly across the battlefield.");
         }
     }

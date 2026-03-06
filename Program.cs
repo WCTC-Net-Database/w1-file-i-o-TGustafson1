@@ -1,13 +1,18 @@
 using Spectre.Console;
-using System.Collections;
-using Console_RPG;
 using Console_RPG.Services;
+using Microsoft.Extensions.DependencyInjection;
+using Console_RPG.Data;
 
 class Program
 {
     static void Main()
     {
-        
+        var serviceCollection = new ServiceCollection();
+        ConfigureServices(serviceCollection);
+
+        var serviceProvider = serviceCollection.BuildServiceProvider();
+        var mainMenu = serviceProvider.GetService<MainMenu>();
+
         // Spoof loading program
         AnsiConsole.Progress()
             .Start(ctx =>
@@ -25,7 +30,14 @@ class Program
         Thread.Sleep(1800);
         Console.Clear();
 
-        var menu = new MainMenu();
-        menu.RunMenu();
+        mainMenu?.RunMenu();
+    }
+
+    private static void ConfigureServices(IServiceCollection services)
+    {
+        services.AddSingleton<IContext, DataContext>();
+        services.AddSingleton<UIService>();
+        services.AddTransient<MainMenu>();
+        services.AddTransient<GameEngine>();
     }
 }

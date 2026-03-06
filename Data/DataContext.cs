@@ -11,6 +11,7 @@ namespace Console_RPG.Data
         private readonly JsonSerializerOptions options;
         public DataContext()
         {
+            //TODO: Look into whether custom converter is required or if polymorphic typing can be used in its place.
             options = new JsonSerializerOptions
             {
                 WriteIndented = true,
