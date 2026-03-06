@@ -1,4 +1,5 @@
 ﻿using Console_RPG.Interfaces;
+using Console_RPG.Models;
 using Console_RPG.Models.Classes;
 
 

@@ -1,13 +1,14 @@
 ﻿using Console_RPG.Interfaces;
 using Console_RPG.Services;
 using Spectre.Console;
+using System.Runtime.InteropServices.Marshalling;
 using System.Text.Json.Serialization;
 
 namespace Console_RPG.Models
 {
-    [JsonPolymorphic(TypeDiscriminatorPropertyName = "$type")]
-    [JsonDerivedType(typeof(CharacterBase))]
-    [JsonDerivedType(typeof(MonsterBase))]
+    [JsonPolymorphic(TypeDiscriminatorPropertyName = "$type", UnknownDerivedTypeHandling = JsonUnknownDerivedTypeHandling.FallBackToNearestAncestor)]
+    [JsonDerivedType(typeof(Console_RPG.Models.CharacterBase))]
+    [JsonDerivedType(typeof(Console_RPG.Models.MonsterBase))]
     //Class Types
     [JsonDerivedType(typeof(Console_RPG.Models.Classes.Fighter))]
     [JsonDerivedType(typeof(Console_RPG.Models.Classes.Wizard))]

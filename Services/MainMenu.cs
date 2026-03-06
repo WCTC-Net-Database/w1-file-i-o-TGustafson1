@@ -3,6 +3,7 @@ using System.Collections;
 using Console_RPG.Models.Classes;
 using Console_RPG.Data;
 using Console_RPG.Models.Monsters;
+using Console_RPG.Models;
 
 namespace Console_RPG.Services
 {

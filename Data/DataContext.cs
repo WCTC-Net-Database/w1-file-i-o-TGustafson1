@@ -20,7 +20,6 @@ namespace Console_RPG.Data
             {
                 WriteIndented = true,
                 PropertyNameCaseInsensitive = true,
-                TypeInfoResolver = new DefaultJsonTypeInfoResolver()
             };
 
             LoadData();
@@ -38,6 +37,7 @@ namespace Console_RPG.Data
         public void AddCharacter(CharacterBase character)
         {
             Characters.Add(character);
+            Entities.Add(character);
             SaveData();
         }
 
@@ -61,13 +61,14 @@ namespace Console_RPG.Data
             if (character != null)
             {
                 Characters.Remove(character);
+                Entities.Remove(character);
                 SaveData();
             }
         }
 
         private void SaveData()
         {
-            var jsonData = JsonSerializer.Serialize(Characters, options);
+            var jsonData = JsonSerializer.Serialize(Entities, options);
             File.WriteAllText("Files/input.json", jsonData);
         }
     }
