@@ -2,7 +2,7 @@
 {
     public interface ICharacter
     {
-        string Profession { get; set; }
+        string Type { get; set; }
         string[] Equipment { get; set; }
         int Level { get; set; }
 

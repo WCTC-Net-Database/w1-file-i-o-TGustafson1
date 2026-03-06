@@ -10,13 +10,13 @@ namespace Console_RPG.Models.Classes
         public Fighter()
         {
             string name = "Bob the Default Fighter";
-            string profession = "Fighter";
+            string type = "Fighter";
             int level = 1;
             int hp = 12;
             string[] equipment = new string[] { "Sword", "Shield" };
         }
-        public Fighter(string name, string profession, int level, int hp, string[] equipment) 
-            : base(name, profession, level, hp, equipment) { }
+        public Fighter(string name, string type, int level, int hp, string[] equipment) 
+            : base(name, type, level, hp, equipment) { }
 
         public override void PerformSpecialAction()
         {

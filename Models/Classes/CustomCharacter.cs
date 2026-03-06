@@ -11,8 +11,8 @@ namespace Console_RPG.Models.Classes
         {
         }
 
-        public CustomCharacter(string name, string profession, int level, int hp, string[] equipment)
-            : base(name, profession, level, hp, equipment)
+        public CustomCharacter(string name, string type, int level, int hp, string[] equipment)
+            : base(name, type, level, hp, equipment)
         {
         }
 

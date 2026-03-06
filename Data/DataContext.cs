@@ -41,7 +41,27 @@ namespace Console_RPG.Data
             {
                 existingCharacter.Level = character.Level;
                 existingCharacter.HP = character.HP;
+
+                //TODO: Implement unique logic for updating players vs monsters if needed
+
+                SaveData();
             }
+        }
+
+        public void DeleteCharacter(string characterName)
+        {
+            var character = Characters.FirstOrDefault(c => c.Name == characterName);
+            if (character != null)
+            {
+                Characters.Remove(character);
+                SaveData();
+            }
+        }
+
+        private void SaveData()
+        {
+            var jsonData = JsonSerializer.Serialize(Characters, options);
+            File.WriteAllText("Files/input.json", jsonData);
         }
     }
 }

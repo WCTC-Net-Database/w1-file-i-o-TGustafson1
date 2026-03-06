@@ -1,21 +1,19 @@
 ﻿using Console_RPG.Interfaces;
 using Console_RPG.Models.Classes;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace Console_RPG.Services
+
+namespace Console_RPG.Data
 {
     public class CharacterFactory : ICharacterFactory
     {
-        public CharacterBase CreateCharacter (string profession)
+        public CharacterBase CreateCharacter (string type)
         {
-            return profession.ToLower() switch
+            return type.ToLower() switch
             {
-                "fighter" => new Fighter(),
-                "cleric" => new Cleric(),
-                "wizard" => new Wizard(),
-                "rogue" => new Rogue(),
+                "Console_RPG.Models.Classes.Fighter" => new Fighter(),
+                "Console_RPG.Models.Classes.Cleric" => new Cleric(),
+                "Console_RPG.Models.Classes.Wizard" => new Wizard(),
+                "Console_RPG.Models.Classes.Rogue" => new Rogue(),
                 _ => new CustomCharacter()
             };
         }

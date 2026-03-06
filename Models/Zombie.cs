@@ -10,6 +10,7 @@ namespace Console_RPG.Models
     public class Zombie : IEntity, IRevivable
     {
         public string Name { get; set; }
+        public int Level { get; set; }
         public int HP { get; set; }
         public Style Styling { get; } = new Style(foreground: Color.Chartreuse4, decoration: Decoration.Bold);
         public Zombie()

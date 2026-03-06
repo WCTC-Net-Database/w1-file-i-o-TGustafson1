@@ -9,7 +9,7 @@
     "Gold": 50
   },
   {
-    "$type": "Console_RPG.Models.Classes.CustomCharacter",
+    "$type": "Console_RPG.Models.Classes.Wizard",
     "Name": "Jane",
     "Type": "Wizard",
     "Level": 2,
@@ -17,7 +17,7 @@
     "Equipment": "staff|robe|book"
   },
   {
-    "$type": "Console_RPG.Models.Classes.CustomCharacter",
+    "$type": "Console_RPG.Models.Classes.Rogue",
     "Name": "Bob, Sneaky",
     "Type": "Rogue",
     "Level": 3,
@@ -25,7 +25,7 @@
     "Equipment": "dagger|lockpick|cloak"
   },
   {
-    "$type": "Console_RPG.Models.Classes.CustomCharacter",
+    "$type": "Console_RPG.Models.Classes.Cleric",
     "Name": "Alice",
     "Type": "Cleric",
     "Level": 4,
@@ -92,21 +92,27 @@
   {
     "$type": "Console_RPG.Models.Zombie",
     "Name": "Shambling Zombie",
-    "HP": 15
+    "Type": "Zombie",
+    "Level": 2,
+    "HP": 15,  
+    "Treasure": null
+
   },
   {
     "$type": "Console_RPG.Models.Zombie",
     "Name": "Rotting Walker",
-    "HP": 12
+    "Type": "Zombie",
+    "Level": 1,
+    "HP": 12,    
+    "Treasure": null
   },
   {
     "$type": "Console_RPG.Models.Zombie",
     "Name": "Zombie Horde Leader",
-    "HP": 20
+    "Type": "Zombie",    
+    "Level": 4,
+    "HP": 20,
+    "Treasure": null
   },
-  {
-    "$type": "Console_RPG.Models.Zombie",
-    "Name": "Fresh Zombie",
-    "HP": 18
-  }
+
 ]

@@ -7,6 +7,7 @@ namespace Console_RPG.Models
     public class Goblin : IEntity, ISneakable, IDodgeable
     {
         public string Name { get; set; }
+        public int Level { get; set; }
         public int HP { get; set; }
         public Style Styling { get; } = new Style(foreground: Color.Green, decoration: Decoration.Bold);
 

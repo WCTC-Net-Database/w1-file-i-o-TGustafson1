@@ -12,13 +12,13 @@ namespace Console_RPG.Models.Classes
         public Wizard()
         {
             string name = "Unnamed Wizard";
-            string profession = "Wizard";
+            string type = "Wizard";
             int level = 1;
             int hp = 8;
             string[] equipment = new string[] { "Wand", "Orb" };
         }
-        public Wizard(string name, string profession, int level, int hp, string[] equipment)
-            : base(name, profession, level, hp, equipment) { }
+        public Wizard(string name, string type, int level, int hp, string[] equipment)
+            : base(name, type, level, hp, equipment) { }
 
         public override void PerformSpecialAction()
         {

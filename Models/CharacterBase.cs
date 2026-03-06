@@ -6,18 +6,10 @@ using Console_RPG.Models.Classes;
 
 namespace Console_RPG
 {
-    // Adding Json Discriminator property to enable polymorphic serialization and deserialization of CharacterBase
-    [JsonPolymorphic(TypeDiscriminatorPropertyName = "profession")]
-    [JsonDerivedType(typeof(Fighter), "Fighter")]
-    [JsonDerivedType(typeof(Cleric), "Cleric")]
-    [JsonDerivedType(typeof(Wizard), "Wizard")]
-    [JsonDerivedType(typeof(Rogue), "Rogue")]
-    [JsonDerivedType(typeof(CustomCharacter), "Knight")]
-
     public abstract class CharacterBase : IEntity, ICharacter
     {
         public string Name { get; set; }
-        public string Profession { get; set; }
+        public string Type { get; set; }
         public int Level { get; set; }
         public int HP { get; set; }
         public string[] Equipment { get; set; }
@@ -28,14 +20,14 @@ namespace Console_RPG
         public CharacterBase() 
         {
             Name = "Unnamed Character";
-            Profession = "Classless";
+            Type = "Classless";
             Equipment = Array.Empty<string>();
         }
 
-        public CharacterBase(string name, string profession, int level, int hp, string[] equipment)
+        public CharacterBase(string name, string type, int level, int hp, string[] equipment)
         {
             Name = name;
-            Profession = profession;
+            Type = type;
             Level = level;
             HP = hp;
             Equipment = equipment ?? Array.Empty<string>();
@@ -43,7 +35,7 @@ namespace Console_RPG
 
         public override string ToString()
         {
-            return $"Name: {Name} - Profession: {Profession} - Level: {Level} - HP: {HP} - Equipment: [{string.Join(", ", Equipment)}]";
+            return $"Name: {Name} - Type: {Type} - Level: {Level} - HP: {HP} - Equipment: [{string.Join(", ", Equipment)}]";
         }
 
         public virtual void Attack(IEntity target)
