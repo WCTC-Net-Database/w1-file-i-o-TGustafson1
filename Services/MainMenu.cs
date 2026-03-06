@@ -67,7 +67,7 @@ namespace Console_RPG.Services
         /// Displays the main menu options to the user.
         /// </summary>
 
-        static void DisplayMenu()
+        private void DisplayMenu()
         {
             AnsiConsole.MarkupLine("[bold DeepSkyBlue4_2]What would you like to do?[/]");
             var menuTable = new Table()
@@ -88,7 +88,8 @@ namespace Console_RPG.Services
         /// </summary>
         static void DisplayAllCharacters()
         {
-            //TODO: Fix this to actually load characters, will need to altar context and CharacterBase
+            //TODO: Fix this to actually load characters, will need to altar context and CharacterBase.
+            // Plan is to refactor to use an EntityBase, which will separate the Lists into CharacterBases and MonsterBases. 
             List<CharacterBase> charList = new List<CharacterBase>();
 
 
@@ -117,7 +118,7 @@ namespace Console_RPG.Services
         }
 
         //Prompt user for new character details and append the character to the file
-        static void AddCharacter()
+        private void AddCharacter()
         {
 
             UIService.WriteHeadline("Add New Character");
@@ -152,6 +153,7 @@ namespace Console_RPG.Services
 
             var equipment = string.Join("|", equipmentList.ToArray());
 
+            // TODO: Revisit using CharacterFactory and whether or not it's appropriate
             var factory = new CharacterFactory();
             var character = factory.CreateCharacter(
                 name,
@@ -161,34 +163,30 @@ namespace Console_RPG.Services
                 equipment.Split("|").ToArray()
             );
 
-            _fileHandler.AppendCharacter(character);
+            _context.AddCharacter(character);
         }
 
-        static void LevelUpCharacter()
+        private void LevelUpCharacter()
         {
-            AnsiConsole.MarkupLine("\n[bold red3]===[/] [bold]Level Up Character[/] [bold red3]===[/]\n");
-
-            List<CharacterBase> characters = _fileHandler.ReadAll();
+            UIService.WriteHeadline("Level Up Character");
 
             Console.Write("Enter character name to level up >> ");
             string nameToFind = Console.ReadLine();
 
-
-
             try
             {
-                foreach (CharacterBase character in characters)
+                foreach (CharacterBase character in _context.Characters)
                 {
                     if (character.Name == nameToFind)
                     {
                         //TODO: Add either progress bar or status spinner 
                         character.Level += 1;
                         AnsiConsole.MarkupLine($"\n[bold DeepSkyBlue4_2]{character.Name} has leveled up to level {character.Level}![/]");
+                        _context.UpdateCharacter(character);
                         break;
                     }
                 }
 
-                _fileHandler.WriteAll(characters);
             }
             catch
             {
@@ -197,13 +195,13 @@ namespace Console_RPG.Services
 
         }
 
-        static void FindCharacter()
+        private void FindCharacter()
         {
             AnsiConsole.MarkupLine("\n[bold red3]===[/] [bold]Find Character[/] [bold red3]===[/]\n");
             Console.Write("Enter character name to find >> ");
             string nameToFind = Console.ReadLine();
 
-            CharacterBase c = _fileHandler.FindByName(_fileHandler.ReadAll(), nameToFind);
+            CharacterBase c = _context.Characters.FirstOrDefault(c => c.Name == nameToFind);
 
             var characterTable = new Table()
                     .AddColumn("[DeepSkyBlue4_2]Name[/]")
@@ -223,7 +221,7 @@ namespace Console_RPG.Services
 
         }
 
-        static void RunGame()
+        private void RunGame()
         {
             UIService.WriteHeadline("Running Game");
 

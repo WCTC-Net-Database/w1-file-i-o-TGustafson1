@@ -18,7 +18,7 @@ namespace Console_RPG.Models.Classes
 
         public override void PerformSpecialAction()
         {
-            ConsoleService.WriteName(Name, Styling);
+            UIService.WriteName(Name, Styling);
             Console.WriteLine(" fails to remember what their specialty is!");
         }
     }

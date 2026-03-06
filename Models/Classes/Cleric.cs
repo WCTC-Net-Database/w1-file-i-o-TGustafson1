@@ -20,7 +20,7 @@ namespace Console_RPG.Models.Classes
 
         public override void PerformSpecialAction()
         {
-            ConsoleService.WriteName(Name, Styling);
+            UIService.WriteName(Name, Styling);
             Console.WriteLine(" prays to the gods, receiving divine healing!");
             HP += 5;
 

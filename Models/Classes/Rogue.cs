@@ -22,16 +22,16 @@ namespace Console_RPG.Models.Classes
 
         public override void PerformSpecialAction()
         {
-            ConsoleService.WriteName(Name, Styling);
+            UIService.WriteName(Name, Styling);
             Console.WriteLine(" decides to sneak around their foe...");
             Sneak();
-            ConsoleService.WriteName(Name, Styling);
+            UIService.WriteName(Name, Styling);
             Console.WriteLine(" successfully sneaks around and lands a critical hit!");
         }
 
         public void Sneak()
         {
-            ConsoleService.WriteName(Name, Styling);
+            UIService.WriteName(Name, Styling);
             Console.WriteLine(" sneaks around, avoiding detection.");
         }
 

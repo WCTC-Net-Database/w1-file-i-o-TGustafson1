@@ -17,21 +17,21 @@ namespace Console_RPG.Models
         }
         public void Attack(IEntity target)
         {
-            ConsoleService.WriteName(Name, Styling);
+            UIService.WriteName(Name, Styling);
             Console.Write(" attacks ");
-            ConsoleService.WriteName(target.Name, target.Styling);
+            UIService.WriteName(target.Name, target.Styling);
             Console.WriteLine(" while laughing mischievously.");
         }
 
         public void Move()
         {
-            ConsoleService.WriteName(Name, Styling);
+            UIService.WriteName(Name, Styling);
             Console.WriteLine(" moves quickly.");
         }
 
         public void Sneak()
         {
-            ConsoleService.WriteName(Name, Styling);
+            UIService.WriteName(Name, Styling);
             Console.WriteLine(" sneaks around, avoiding detection.");
 
         }
@@ -39,7 +39,7 @@ namespace Console_RPG.Models
         public void Dodge()
         {
             Console.Write("\tbut ");
-            ConsoleService.WriteName(Name, Styling);
+            UIService.WriteName(Name, Styling);
             Console.WriteLine(" dodges swiftly to the side!");
 
         }

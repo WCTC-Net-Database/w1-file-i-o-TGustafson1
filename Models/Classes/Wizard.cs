@@ -22,7 +22,7 @@ namespace Console_RPG.Models.Classes
 
         public override void PerformSpecialAction()
         {
-            ConsoleService.WriteName(Name, Styling);
+            UIService.WriteName(Name, Styling);
             Console.WriteLine(" shoots a large fireball, dealing a splash of damage!");
         }
     }

@@ -21,22 +21,22 @@ namespace Console_RPG.Models
 
         public void Attack(IEntity target)
         {
-            ConsoleService.WriteName(Name, Styling);
+            UIService.WriteName(Name, Styling);
             Console.Write($" attacks ");
-            ConsoleService.WriteName(target.Name, target.Styling);
+            UIService.WriteName(target.Name, target.Styling);
             Console.WriteLine(" with its blood soaked hands.");
         }
 
         public void Move()
         {
-            ConsoleService.WriteName(Name, Styling);
+            UIService.WriteName(Name, Styling);
             Console.WriteLine(" shambles around while groaning.");
         }
 
         public void Revive()
         {
             HP = 20;
-            ConsoleService.WriteName(Name, Styling);
+            UIService.WriteName(Name, Styling);
             Console.WriteLine($" has been revived and is now a formidable foe!");
         }
     }

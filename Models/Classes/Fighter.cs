@@ -20,7 +20,7 @@ namespace Console_RPG.Models.Classes
 
         public override void PerformSpecialAction()
         {
-            ConsoleService.WriteName(Name, Styling);
+            UIService.WriteName(Name, Styling);
             Console.WriteLine(" performs a powerful whirlwind attack, hitting all nearby enemies!");
 
         }

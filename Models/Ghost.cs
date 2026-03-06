@@ -19,21 +19,21 @@ namespace Console_RPG.Models
 
         public void Attack(IEntity target)
         {
-            ConsoleService.WriteName(Name, Styling);
+            UIService.WriteName(Name, Styling);
             Console.Write($" attacks ");
-            ConsoleService.WriteName(target.Name, target.Styling);
+            UIService.WriteName(target.Name, target.Styling);
             Console.WriteLine(" with a chilling touch.");
         }
 
         public void Move()
         {
-            ConsoleService.WriteName(Name, Styling);
+            UIService.WriteName(Name, Styling);
             Console.WriteLine(" floats silently.");
         }
 
         public void Fly()
         {
-            ConsoleService.WriteName(Name, Styling);
+            UIService.WriteName(Name, Styling);
             Console.WriteLine(" flies with a shrieking howl!");
         }
     }
