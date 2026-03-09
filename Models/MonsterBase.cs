@@ -1,10 +1,18 @@
-﻿using Spectre.Console;
+﻿using Console_RPG.Models.Monsters;
+using Spectre.Console;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.Json.Serialization;
 
 namespace Console_RPG.Models
 {
+
+    [JsonPolymorphic(TypeDiscriminatorPropertyName = "$type")]
+    [JsonDerivedType(typeof(Goblin), typeDiscriminator: "Console_RPG.Models.Monsters.Goblin")]
+    [JsonDerivedType(typeof(Zombie), typeDiscriminator: "Console_RPG.Models.Monsters.Zombie")]
+    [JsonDerivedType(typeof(Ghost), typeDiscriminator: "Console_RPG.Models.Monsters.Ghost")]
+
     public abstract class MonsterBase : EntityBase
     {
         public string Treasure { get; set; }

@@ -6,19 +6,6 @@ using System.Text.Json.Serialization;
 
 namespace Console_RPG.Models
 {
-    [JsonPolymorphic(TypeDiscriminatorPropertyName = "$type", UnknownDerivedTypeHandling = JsonUnknownDerivedTypeHandling.FallBackToNearestAncestor)]
-    [JsonDerivedType(typeof(Console_RPG.Models.CharacterBase))]
-    [JsonDerivedType(typeof(Console_RPG.Models.MonsterBase))]
-    //Class Types
-    [JsonDerivedType(typeof(Console_RPG.Models.Classes.Fighter))]
-    [JsonDerivedType(typeof(Console_RPG.Models.Classes.Wizard))]
-    [JsonDerivedType(typeof(Console_RPG.Models.Classes.Rogue))]
-    [JsonDerivedType(typeof(Console_RPG.Models.Classes.Cleric))]
-    [JsonDerivedType(typeof(Console_RPG.Models.Classes.CustomCharacter))]
-    //Monster Types
-    [JsonDerivedType(typeof(Console_RPG.Models.Monsters.Goblin))]
-    [JsonDerivedType(typeof(Console_RPG.Models.Monsters.Ghost))]
-    [JsonDerivedType(typeof(Console_RPG.Models.Monsters.Zombie))]
     public abstract class EntityBase : IEntity
     {
         public string Name { get; set; }

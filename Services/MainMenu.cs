@@ -87,12 +87,8 @@ namespace Console_RPG.Services
         /// <summary>
         /// Displays all characters by reading from file and printing.
         /// </summary>
-        static void DisplayAllCharacters()
+        private void DisplayAllCharacters()
         {
-            //TODO: Fix this to actually load characters, will need to altar context and CharacterBase.
-            // Plan is to refactor to use an EntityBase, which will separate the Lists into CharacterBases and MonsterBases. 
-            List<CharacterBase> charList = new List<CharacterBase>();
-
 
             UIService.WriteHeadline("All Characters");
 
@@ -103,7 +99,7 @@ namespace Console_RPG.Services
                     .AddColumn("[DeepSkyBlue4_2]HP[/]")
                     .AddColumn("[DeepSkyBlue4_2]Equipment list[/]");
 
-            foreach (CharacterBase c in charList)
+            foreach (CharacterBase c in _context.Characters)
             {
                 characterTable.AddRow(
                     $"[LightCyan3]{c.Name}[/]",

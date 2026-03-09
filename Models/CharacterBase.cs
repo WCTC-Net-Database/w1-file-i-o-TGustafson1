@@ -7,12 +7,18 @@ using Console_RPG.Models;
 
 namespace Console_RPG.Models;
 
+[JsonPolymorphic(TypeDiscriminatorPropertyName = "$type")]
+[JsonDerivedType(typeof(Rogue), typeDiscriminator: "Console_RPG.Models.Classes.Rogue")]
+[JsonDerivedType(typeof(Fighter), typeDiscriminator: "Console_RPG.Models.Classes.Fighter")]
+[JsonDerivedType(typeof(Wizard), typeDiscriminator: "Console_RPG.Models.Classes.Wizard")]
+[JsonDerivedType(typeof(Cleric), typeDiscriminator: "Console_RPG.Models.Classes.Cleric")]
+[JsonDerivedType(typeof(CustomCharacter), typeDiscriminator: "Console_RPG.Models.Classes.CustomCharacter")]
+
 public abstract class CharacterBase : EntityBase, ICharacter
 {
     
     public string[] Equipment { get; set; }
 
-    //TODO: Do we need to override Styling here? 
     public Style Styling { get; } = new Style(foreground: Color.DeepSkyBlue4_2, decoration: Decoration.Bold);
 
 

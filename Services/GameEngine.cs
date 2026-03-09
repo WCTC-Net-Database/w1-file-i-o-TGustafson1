@@ -14,6 +14,7 @@ namespace Console_RPG.Services
         private List<ICommand> commands = new List<ICommand>();
 
 
+        //TODO: Alter to accept List<IEntity> instead of hardcoding each entity as a parameter.
         public GameEngine(IEntity character, IEntity goblin, IEntity ghost, IEntity zombie)
         {
             _character = character;

@@ -27,11 +27,11 @@ namespace Console_RPG.Data
 
         private void LoadData()
         {
-            var jsonData = File.ReadAllText("Files/input.json");
-            Entities = JsonSerializer.Deserialize<List<EntityBase>>(jsonData, options) ?? new List<EntityBase>();
+            var characterData = File.ReadAllText("Files/characters.json");
+            Characters = JsonSerializer.Deserialize<List<CharacterBase>>(characterData, options) ?? new List<CharacterBase>();
 
-            Characters = Entities.OfType<CharacterBase>().ToList();
-            Monsters = Entities.OfType<MonsterBase>().ToList();
+            var monsterData = File.ReadAllText("Files/monsters.json");
+            Monsters = JsonSerializer.Deserialize<List<MonsterBase>>(monsterData, options) ?? new List<MonsterBase>();
         }
 
         public void AddCharacter(CharacterBase character)

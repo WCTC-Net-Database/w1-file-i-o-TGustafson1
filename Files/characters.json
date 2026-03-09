@@ -1,0 +1,52 @@
+﻿[
+  {
+    "$type": "Console_RPG.Models.Classes.Fighter",
+    "Name": "John, Brave",
+    "Type": "Fighter",
+    "Level": 1,
+    "HP": 10,
+    "Equipment": ["sword", "shield", "potion"],
+    "Gold": 50
+  },
+  {
+    "$type": "Console_RPG.Models.Classes.Wizard",
+    "Name": "Jane",
+    "Type": "Wizard",
+    "Level": 2,
+    "HP": 6,
+    "Equipment": ["staff", "robe", "book"]
+  },
+  {
+    "$type": "Console_RPG.Models.Classes.Rogue",
+    "Name": "Bob, Sneaky",
+    "Type": "Rogue",
+    "Level": 3,
+    "HP": 8,
+    "Equipment": ["dagger", "lockpick", "cloak"]
+  },
+  {
+    "$type": "Console_RPG.Models.Classes.Cleric",
+    "Name": "Alice",
+    "Type": "Cleric",
+    "Level": 4,
+    "HP": 12,
+    "Equipment": ["mace", "armor", "potion"]
+  },
+  {
+    "$type": "Console_RPG.Models.Classes.CustomCharacter",
+    "Name": "Reginald III, Sir",
+    "Type": "Knight",
+    "Level": 5,
+    "HP": 20,
+    "Equipment": ["sword", "armor", "horse"]
+  },
+  {
+    "$type": "Console_RPG.Models.Classes.Fighter",
+    "Name": "Brave Sir Robin",
+    "Type": "Fighter",
+    "Level": 1,
+    "HP": 10,
+    "Equipment": ["sword", "shield", "potion"],
+    "Gold": 50
+  }
+]
