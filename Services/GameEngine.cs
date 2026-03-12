@@ -12,7 +12,7 @@ namespace Console_RPG.Services
         private List<ICommand> commands = new List<ICommand>();
 
 
-        //TODO: Alter to accept List<IEntity> instead of hardcoding each entity as a parameter.
+        //TODO: Alter to accept List<IEntity> instead of hardcoding each entity as a parameter. 
         public GameEngine(List<IEntity> entities)
         {
             _entities = entities;
