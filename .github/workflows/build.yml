@@ -50,7 +50,7 @@ jobs:
         continue-on-error: true  # Don't fail if project already exists
 
       - name: Restore dependencies
-        run: dotnet restore
+        run: dotnet restore "Console RPG.sln"
 
       - name: Begin SonarCloud Analysis
         shell: powershell
