@@ -65,7 +65,7 @@ jobs:
             /d:sonar.cs.opencover.reportsPaths="**/coverage.opencover.xml"
 
       - name: Build
-        run: dotnet build --configuration Release --no-restore
+        run: dotnet build "Console RPG.sln" --configuration Release --no-restore
 
       - name: End SonarCloud Analysis
         shell: powershell
