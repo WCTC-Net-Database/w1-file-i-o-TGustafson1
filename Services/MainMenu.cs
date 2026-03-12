@@ -4,6 +4,7 @@ using Console_RPG.Models.Classes;
 using Console_RPG.Data;
 using Console_RPG.Models.Monsters;
 using Console_RPG.Models;
+using Console_RPG.Interfaces;
 
 namespace Console_RPG.Services
 {
@@ -224,11 +225,22 @@ namespace Console_RPG.Services
 
             //TODO: Use Factory Pattern to create character based on selected character/class from file instead of hardcoding. 
             var character = new Fighter();
+
+            //TODO: Read monster details from file and create monsters based on that instead of hardcoding.
             var goblin = new Goblin();
             var ghost = new Ghost();
             var zombie = new Zombie();
 
-            var gameEngine = new GameEngine(character, goblin, ghost, zombie);
+            List<IEntity> entities = new List<IEntity>()
+            {
+                character,
+                goblin,
+                ghost,
+                zombie
+            };
+
+
+            var gameEngine = new GameEngine(entities);
             gameEngine?.Run();
         }
 

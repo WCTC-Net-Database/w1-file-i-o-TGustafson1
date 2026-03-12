@@ -13,7 +13,7 @@ namespace Console_RPG.Models
         public int Level { get; set; }
         public int HP { get; set; }
 
-        public Style Styling { get; } = new Style(foreground: Color.White, decoration: Decoration.Bold);
+        public virtual Style Styling { get; } = new Style(foreground: Color.White, decoration: Decoration.Bold);
 
         public EntityBase()
         {

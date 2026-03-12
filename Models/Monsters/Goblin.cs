@@ -6,14 +6,11 @@ namespace Console_RPG.Models.Monsters
 {
     public class Goblin : MonsterBase, ISneakable, IDodgeable
     {
-        public string Name { get; set; }
-        public int Level { get; set; }
-        public int HP { get; set; }
-        public Style Styling { get; } = new Style(foreground: Color.Green, decoration: Decoration.Bold);
+        public override Style Styling { get; } = new Style(foreground: Color.Green, decoration: Decoration.Bold);
 
         public Goblin() { 
-            Name = "Generic Goblin";
-            HP = 18;
+            base.Name = "Generic Goblin";
+            base.HP = 18;
         }
         public void Attack(IEntity target)
         {

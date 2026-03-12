@@ -7,14 +7,11 @@ namespace Console_RPG.Models.Monsters
 {
     public class Ghost : MonsterBase, IFlyable
     {
-        public string Name { get; set; }
-        public int Level { get; set; }
-        public int HP { get; set; }
-        public Style Styling { get; } = new Style(foreground: Color.White, decoration: Decoration.Bold);
+        public override Style Styling { get; } = new Style(foreground: Color.White, decoration: Decoration.Bold);
 
         public Ghost() {
-            Name = "Generic Ghost";
-            HP = 12;
+            base.Name = "Generic Ghost";
+            base.HP = 12;
         }
 
         public void Attack(IEntity target)

@@ -17,7 +17,7 @@ namespace Console_RPG.Models
     {
         public string Treasure { get; set; }
 
-        public Style Styling { get; } = new Style(foreground: Color.DarkRed, decoration: Decoration.Bold);
+        public override Style Styling { get; } = new Style(foreground: Color.DarkRed, decoration: Decoration.Bold);
 
         public MonsterBase()
         {

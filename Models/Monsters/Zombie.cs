@@ -9,14 +9,11 @@ namespace Console_RPG.Models.Monsters
 {
     public class Zombie : MonsterBase, IRevivable
     {
-        public string Name { get; set; }
-        public int Level { get; set; }
-        public int HP { get; set; }
-        public Style Styling { get; } = new Style(foreground: Color.Chartreuse4, decoration: Decoration.Bold);
+        public override Style Styling { get; } = new Style(foreground: Color.Chartreuse4, decoration: Decoration.Bold);
         public Zombie()
         {
-            Name = "Generic Zombie";
-            HP = 15;
+            base.Name = "Generic Zombie";
+            base.HP = 15;
         }
 
         public void Attack(IEntity target)

@@ -1,40 +1,30 @@
 ﻿using Console_RPG.Commands;
 using Console_RPG.Interfaces;
 using Console_RPG.Models;
+using Console_RPG.Models.Classes;
 
 namespace Console_RPG.Services
 {
     public class GameEngine
     {
+        private readonly List<IEntity> _entities;
         private readonly IEntity _character;
-        private readonly IEntity _goblin;
-        private readonly IEntity _ghost;
-        private readonly IEntity _zombie;
-
         private List<ICommand> commands = new List<ICommand>();
 
 
         //TODO: Alter to accept List<IEntity> instead of hardcoding each entity as a parameter.
-        public GameEngine(IEntity character, IEntity goblin, IEntity ghost, IEntity zombie)
+        public GameEngine(List<IEntity> entities)
         {
-            _character = character;
-            _goblin = goblin;
-            _ghost = ghost;
-            _zombie = zombie;
+            _entities = entities;
+            _character = _entities.FirstOrDefault(e => e is ICharacter) ?? new CustomCharacter(); ;
         }
 
         public void Run()
         {
-            _character.Name = "Hero";
-            _goblin.Name = "Goblin";
-            _ghost.Name = "Ghost";
-            _zombie.Name = "Zombie";
-
-            List <IEntity> entities = new List<IEntity>() { _character, _goblin, _ghost, _zombie };
 
             //TODO: Mock timer/processing time
 
-            foreach (var entity in entities) 
+            foreach (var entity in _entities) 
             {
                 UIService.WriteHeadline($"Processing {entity.Name}");
                 ProcessMovement(entity);
@@ -48,10 +38,14 @@ namespace Console_RPG.Services
             commands.Clear();
 
             UIService.WriteHeadline("Combat");
-            ProcessCombat(_goblin, _character);
-            ProcessCombat(_ghost, _character);
-            ProcessCombat(_zombie, _character);
-            ProcessCombat(_character, _goblin);
+            foreach (MonsterBase monster in _entities.OfType<MonsterBase>()) 
+            {
+                ProcessCombat(monster, _character);
+            }
+            if (_entities.Exists(_entities => _entities is IEntity))
+            {
+                ProcessCombat(_character, _entities.OfType<MonsterBase>().FirstOrDefault());
+            }
 
             foreach (var c in commands) {
                 c.Execute();
@@ -61,7 +55,7 @@ namespace Console_RPG.Services
 
             UIService.WriteHeadline("End of Round");
 
-            foreach (var entity in entities) 
+            foreach (var entity in _entities) 
             {
                 ProcessRoundEnd(entity);
             }
@@ -102,16 +96,22 @@ namespace Console_RPG.Services
 
         public void ProcessCombat(IEntity attacker, IEntity target)
         {
-            commands.Add(new AttackCommand(attacker, target));
-
-            if (target is IDodgeable dodgyTarget)
+            if (attacker is ICharacter)
             {
-                Random random = new Random();
-                if (random.Next(100) < 25)
-                {
-                    commands.Add(new DodgeCommand(dodgyTarget));
-                }
+                commands.Add(new SpecialActionCommand((ICharacter)attacker, target));
             }
+            else
+            {
+                commands.Add(new AttackCommand(attacker, target));
+                if (target is IDodgeable dodgyTarget)
+                {
+                    Random random = new Random();
+                    if (random.Next(100) < 25)
+                    {
+                        commands.Add(new DodgeCommand(dodgyTarget));
+                    }
+                }
+            }        
         }
     }
 }

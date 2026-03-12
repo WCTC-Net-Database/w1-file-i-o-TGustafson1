@@ -19,8 +19,7 @@ public abstract class CharacterBase : EntityBase, ICharacter
     
     public string[] Equipment { get; set; }
 
-    public Style Styling { get; } = new Style(foreground: Color.DeepSkyBlue4_2, decoration: Decoration.Bold);
-
+    public override Style Styling { get; } = new Style(foreground: Color.DeepSkyBlue4_2, decoration: Decoration.Bold);
 
     public CharacterBase() 
     {
